@@ -23,7 +23,7 @@ import java.util.Random;
 
 
 public class MapOfCity {
-    public SimpleWeightedGraph createMap(int numberOfVertexes) {
+    public static SimpleWeightedGraph createMap(int numberOfVertexes) {
 
         // create weighted graph
         SimpleWeightedGraph<String, DefaultWeightedEdge> mapOfCity
