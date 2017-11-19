@@ -2,6 +2,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Rectangle;
 
+import java.io.*;
 import java.util.*;
 
 import javax.swing.JApplet;
@@ -20,7 +21,7 @@ import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.SimpleWeightedGraph;
 
 
-public class MapOfCity {
+public class MapOfCity implements Serializable {
     public static Graph createMap(int numberOfVertexes) {
 
         // create weighted graph
@@ -48,8 +49,42 @@ public class MapOfCity {
         return mapOfCity;
     }
 
-    // public static ArrayList<String> createClients(Graph graph, int numberOfClients) {
-    // Set vertexSet = graph.vertexSet();
+    public static void SaveToFile(Graph mapOfCity, String adress) throws IOException
+    {
+        FileOutputStream fos = new FileOutputStream(adress);
+        ObjectOutputStream asd = new ObjectOutputStream(fos);
+        asd.writeObject(mapOfCity);   //???????????
+        asd.close();
+    }
 
-    // }
+    public static Graph LoadFromFile(String adress) throws IOException, ClassNotFoundException
+    {
+        FileInputStream fis = new FileInputStream(adress);
+        ObjectInputStream asd = new ObjectInputStream(fis);
+        Graph obj = (Graph)asd.readObject();
+        asd.close();
+        return obj;
+    }
+
+    public static ArrayList<String> createClients(Graph graph, int numberOfClients) {
+        ArrayList vertexesList = new ArrayList(graph.vertexSet());
+        ArrayList<String> clientsList = new ArrayList();
+        for (int i = 0; i < numberOfClients; i++) {
+            int random_index = new Random().nextInt(vertexesList.size());
+            clientsList.add((String) vertexesList.get(random_index));
+            vertexesList.remove(random_index);
+        }
+        return clientsList;
+    }
+
+    public static ArrayList<String> createTaxi(Graph graph, int numberOfTaxi) {
+        ArrayList vertexesList = new ArrayList(graph.vertexSet());
+        ArrayList<String> clientsList = new ArrayList();
+        for (int i = 0; i < numberOfTaxi; i++) {
+            int random_index = new Random().nextInt(vertexesList.size());
+            clientsList.add((String) vertexesList.get(random_index));
+            vertexesList.remove(random_index);
+        }
+        return clientsList;
+    }
 }
