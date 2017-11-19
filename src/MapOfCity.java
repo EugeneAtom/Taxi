@@ -2,8 +2,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Rectangle;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 import javax.swing.JApplet;
 import javax.swing.JFrame;
@@ -12,6 +11,7 @@ import org.jgraph.JGraph;
 import org.jgraph.graph.DefaultGraphCell;
 import org.jgraph.graph.GraphConstants;
 
+import org.jgrapht.Graph;
 import org.jgrapht.ListenableGraph;
 import org.jgrapht.ext.JGraphModelAdapter;
 import org.jgrapht.graph.DefaultWeightedEdge;
@@ -19,14 +19,12 @@ import org.jgrapht.graph.ListenableDirectedGraph;
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.SimpleWeightedGraph;
 
-import java.util.Random;
-
 
 public class MapOfCity {
-    public static SimpleWeightedGraph createMap(int numberOfVertexes) {
+    public static Graph createMap(int numberOfVertexes) {
 
         // create weighted graph
-        SimpleWeightedGraph<String, DefaultWeightedEdge> mapOfCity
+        Graph<String, DefaultWeightedEdge> mapOfCity
                 = new SimpleWeightedGraph<>(DefaultWeightedEdge.class);
 
         // generate vertexes
@@ -49,4 +47,9 @@ public class MapOfCity {
 
         return mapOfCity;
     }
+
+    // public static ArrayList<String> createClients(Graph graph, int numberOfClients) {
+    // Set vertexSet = graph.vertexSet();
+
+    // }
 }
