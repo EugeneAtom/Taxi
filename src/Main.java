@@ -1,38 +1,32 @@
 import org.jgrapht.Graph;
-import org.jgrapht.alg.interfaces.AStarAdmissibleHeuristic;
 import org.jgrapht.alg.shortestpath.ALTAdmissibleHeuristic;
 import org.jgrapht.alg.shortestpath.AStarShortestPath;
-import org.jgrapht.event.VertexSetListener;
-import org.jgrapht.graph.SimpleWeightedGraph;
-import org.jgrapht.graph.GraphWalk;
 
 import java.awt.*;
+import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.util.HashSet;
+import java.util.Random;
+import java.util.Set;
 
 public class Main {
+    private static final String RELATIVE_PATH = "/first_map.txt";
     public static void main(String [] args) throws IOException, ClassNotFoundException {
-        String mapAddress = "/home/Eugene/Taxi/map.txt";
-        Graph mapOfCity = MapOfCity.createMap(20);
-        MapOfCity.SaveToFile(mapOfCity, mapAddress);
-        mapOfCity = MapOfCity.LoadFromFile(mapAddress);
+        // MapOfCity.createMap(10);
+        //  MapOfCity.SaveToFile(mapOfCity, "/home/Eugene/Taxi/first_map.txt");
+        // mapOfCity = MapOfCity.LoadFromFile(address);
+
+        String filePath = new File("").getAbsolutePath() + RELATIVE_PATH;
+        System.out.println(filePath);
+        Graph mapOfCity = MapOfCity.LoadFromFile(filePath);
         System.out.println(mapOfCity);
+        System.out.println("Shortest path by A* algorithm:");
+        ALTAdmissibleHeuristic heuristic = new ALTAdmissibleHeuristic(mapOfCity, mapOfCity.vertexSet());
+        AStarShortestPath path = new AStarShortestPath(mapOfCity, heuristic);
+        String shortestPath = (path.getPath("v1", "v5")).toString();
+        System.out.println(shortestPath);
 
-        String clientAddress = "/home/Eugene/Taxi/client.txt";
-        ArrayList<String> namesOfClients = new ArrayList<>(Arrays.asList("Ar'chill", "Dimitrii"));
-        ArrayList<Client> clients = MapOfCity.createClients(mapOfCity, namesOfClients);
-        Client.SaveToFile(clients.get(0), clientAddress);
-        Client client = Client.LoadFromFile(clientAddress);
-        System.out.println(client);
-
-        String taxiAddress = "/home/Eugene/Taxi/taxi.txt";
-        ArrayList<String> taxists = new ArrayList<>(Arrays.asList("A701BC", "X702YT"));
-        ArrayList<Taxi> taxis = MapOfCity.createTaxi(mapOfCity, taxists);
-        Taxi.SaveToFile(taxis.get(0), taxiAddress);
-        Taxi taxi = Taxi.LoadFromFile(taxiAddress);
-        System.out.println(taxi);
-
-        Path path = new Path(mapOfCity);
-        System.out.println(path.createPath(client, taxi));
+        System.out.println(MapOfCity.createClients(mapOfCity, 4));
+        System.out.println(MapOfCity.createTaxi(mapOfCity, 4));
     }
 }
