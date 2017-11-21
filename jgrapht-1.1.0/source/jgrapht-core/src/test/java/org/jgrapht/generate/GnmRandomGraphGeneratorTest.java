@@ -463,7 +463,7 @@ public class GnmRandomGraphGeneratorTest
     {
         /**
          * Compare topology of the two graphs. It does not compare the contents of the
-         * vertexes/edges, but only the relationships between them.
+         * Vertices/edges, but only the relationships between them.
          *
          * @param g1
          * @param g2

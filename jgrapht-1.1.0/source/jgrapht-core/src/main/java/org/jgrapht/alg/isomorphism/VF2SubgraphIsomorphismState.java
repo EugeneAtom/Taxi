@@ -45,8 +45,8 @@ class VF2SubgraphIsomorphismState<V, E>
         String pairstr = "(" + g1.getVertex(addVertex1) + ", " + g2.getVertex(addVertex2) + ")",
             abortmsg = pairstr + " does not fit in the current matching";
 
-        // check for semantic equality of both vertexes
-        if (!areCompatibleVertexes(addVertex1, addVertex2)) {
+        // check for semantic equality of both Vertices
+        if (!areCompatibleVertices(addVertex1, addVertex2)) {
             return false;
         }
 

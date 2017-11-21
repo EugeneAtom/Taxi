@@ -146,9 +146,9 @@ public class AsSubgraphTest
         baseGraph.addVertex(v1);
         baseGraph.addVertex(v2);
 
-        Set<Object> initialVertexes = new LinkedHashSet<>();
-        initialVertexes.add(v1);
-        Graph<Object, DefaultEdge> subgraph = new AsSubgraph<>(baseGraph, initialVertexes, null);
+        Set<Object> initialVertices = new LinkedHashSet<>();
+        initialVertices.add(v1);
+        Graph<Object, DefaultEdge> subgraph = new AsSubgraph<>(baseGraph, initialVertices, null);
         baseGraph.addEdge(v1, v2);
 
         assertFalse(subgraph.containsEdge(v1, v2));

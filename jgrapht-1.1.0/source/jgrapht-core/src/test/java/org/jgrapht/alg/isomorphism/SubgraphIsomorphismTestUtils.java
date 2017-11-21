@@ -117,18 +117,18 @@ public class SubgraphIsomorphismTestUtils
 
     public static Graph<Integer, DefaultEdge> randomGraph(int vertexCount, int edgeCount, long seed)
     {
-        Integer[] vertexes = new Integer[vertexCount];
+        Integer[] Vertices = new Integer[vertexCount];
         Graph<Integer, DefaultEdge> g = new DefaultDirectedGraph<>(DefaultEdge.class);
 
         for (int i = 0; i < vertexCount; i++)
-            g.addVertex(vertexes[i] = i);
+            g.addVertex(Vertices[i] = i);
 
         Random rnd = new Random();
         rnd.setSeed(seed);
 
         for (int i = 0; i < edgeCount;) {
-            Integer source = vertexes[rnd.nextInt(vertexCount)],
-                target = vertexes[rnd.nextInt(vertexCount)];
+            Integer source = Vertices[rnd.nextInt(vertexCount)],
+                target = Vertices[rnd.nextInt(vertexCount)];
 
             if (source != target && !g.containsEdge(source, target)) {
                 g.addEdge(source, target);
@@ -140,7 +140,7 @@ public class SubgraphIsomorphismTestUtils
     }
 
     /**
-     * Assuming g1 and g2 have vertexes labeled with 0, 1, ... No semantic check is done. Assuming
+     * Assuming g1 and g2 have Vertices labeled with 0, 1, ... No semantic check is done. Assuming
      * SubgraphIsomorphismRelation.equals and getMatchings are correct.
      *
      * @param vf2 the SubgraphIsomorphismInspector
@@ -190,7 +190,7 @@ public class SubgraphIsomorphismTestUtils
     }
 
     /**
-     * Assuming g1 and g2 have vertexes labeled with 0, 1, ... No semantic check is done.
+     * Assuming g1 and g2 have Vertices labeled with 0, 1, ... No semantic check is done.
      *
      * @param g1 first Graph
      * @param g2 second Graph, smaller or equal to g1

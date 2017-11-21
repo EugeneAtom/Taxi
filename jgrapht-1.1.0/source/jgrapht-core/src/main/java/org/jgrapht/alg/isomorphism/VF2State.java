@@ -374,7 +374,7 @@ abstract class VF2State<V, E>
      *
      * @return v1 and v2 are equivalent
      */
-    protected boolean areCompatibleVertexes(int v1, int v2)
+    protected boolean areCompatibleVertices(int v1, int v2)
     {
         return (vertexComparator == null)
             || (vertexComparator.compare(g1.getVertex(v1), g2.getVertex(v2)) == 0);
@@ -401,7 +401,7 @@ abstract class VF2State<V, E>
         return new IsomorphicGraphMapping<>(g1, g2, core1, core2);
     }
 
-    public void resetAddVertexes()
+    public void resetAddVertices()
     {
         addVertex1 = addVertex2 = NULL_NODE;
     }

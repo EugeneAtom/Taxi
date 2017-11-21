@@ -555,12 +555,12 @@ public class DirectedAcyclicGraphTest
         implements GraphGenerator<V, E, V>
     {
         private Random randomizer;
-        private int numOfVertexes;
+        private int numOfVertices;
         private int numOfEdges;
 
         public RepeatableRandomGraphGenerator(int vertices, int edges, long seed)
         {
-            this.numOfVertexes = vertices;
+            this.numOfVertices = vertices;
             this.numOfEdges = edges;
             this.randomizer = new Random(seed);
         }
@@ -569,10 +569,10 @@ public class DirectedAcyclicGraphTest
         public void generateGraph(
             Graph<V, E> graph, VertexFactory<V> vertexFactory, Map<String, V> namedVerticesMap)
         {
-            List<V> vertices = new ArrayList<>(numOfVertexes);
+            List<V> vertices = new ArrayList<>(numOfVertices);
             Set<Integer> edgeGeneratorIds = new HashSet<>();
 
-            for (int i = 0; i < numOfVertexes; i++) {
+            for (int i = 0; i < numOfVertices; i++) {
                 V vertex = vertexFactory.createVertex();
                 vertices.add(vertex);
                 graph.addVertex(vertex);
@@ -581,11 +581,11 @@ public class DirectedAcyclicGraphTest
             for (int i = 0; i < numOfEdges; i++) {
                 Integer edgeGeneratorId;
                 do {
-                    edgeGeneratorId = randomizer.nextInt(numOfVertexes * (numOfVertexes - 1));
+                    edgeGeneratorId = randomizer.nextInt(numOfVertices * (numOfVertices - 1));
                 } while (edgeGeneratorIds.contains(edgeGeneratorId));
 
-                int fromVertexId = edgeGeneratorId / numOfVertexes;
-                int toVertexId = edgeGeneratorId % (numOfVertexes - 1);
+                int fromVertexId = edgeGeneratorId / numOfVertices;
+                int toVertexId = edgeGeneratorId % (numOfVertices - 1);
                 if (toVertexId >= fromVertexId) {
                     ++toVertexId;
                 }

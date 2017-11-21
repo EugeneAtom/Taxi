@@ -191,7 +191,7 @@ public abstract class Graphs
      * Adds a subset of the edges of the specified source graph to the specified destination graph.
      * The behavior of this operation is undefined if either of the graphs is modified while the
      * operation is in progress. {@link #addEdgeWithVertices} is used for the transfer, so source
-     * vertexes will be added automatically to the target graph.
+     * Vertices will be added automatically to the target graph.
      *
      * @param destination the graph to which edges are to be added
      * @param source the graph used as a source for edges to add

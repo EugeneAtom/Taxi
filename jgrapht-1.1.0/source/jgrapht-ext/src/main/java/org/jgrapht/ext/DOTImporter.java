@@ -197,7 +197,7 @@ public class DOTImporter<V, E>
             throw new ImportException("Dot string was empty");
         }
 
-        Map<String, V> vertexes = new HashMap<>();
+        Map<String, V> Vertices = new HashMap<>();
 
         int state = HEADER;
         int lastState = HEADER;
@@ -212,10 +212,10 @@ public class DOTImporter<V, E>
                 state = processHeader(input, position, sectionBuffer, graph);
                 break;
             case NODE:
-                state = processNode(input, position, sectionBuffer, graph, vertexes);
+                state = processNode(input, position, sectionBuffer, graph, Vertices);
                 break;
             case EDGE:
-                state = processEdge(input, position, sectionBuffer, graph, vertexes);
+                state = processEdge(input, position, sectionBuffer, graph, Vertices);
                 break;
             case LINE_COMMENT:
                 state = processLineComment(input, position, sectionBuffer, lastState);
@@ -235,7 +235,7 @@ public class DOTImporter<V, E>
                 state = processEdgeQuotes(input, position, sectionBuffer);
                 break;
             case NEXT:
-                state = processNext(input, position, sectionBuffer, graph, vertexes);
+                state = processNext(input, position, sectionBuffer, graph, Vertices);
                 break;
 
             // DONE not included here as we can't get to it with the while loop.
@@ -354,7 +354,7 @@ public class DOTImporter<V, E>
      * @param position how far into the string we have got.
      * @param sectionBuffer the current section.
      * @param graph the graph we are creating.
-     * @param vertexes the existing set of vertexes that have been created so far.
+     * @param Vertices the existing set of Vertices that have been created so far.
      *
      * @return the next state.
      *
@@ -362,7 +362,7 @@ public class DOTImporter<V, E>
      */
     private int processNext(
         String input, int position, StringBuilder sectionBuffer, Graph<V, E> graph,
-        Map<String, V> vertexes)
+        Map<String, V> Vertices)
         throws ImportException
     {
         if (isStartOfLineComment(input, position)) {
@@ -390,7 +390,7 @@ public class DOTImporter<V, E>
         // the end of a block. as we can't have had a dash yet we must be at the
         // end of a node.
         if (current == ';') {
-            processCompleteNode(sectionBuffer.toString(), graph, vertexes);
+            processCompleteNode(sectionBuffer.toString(), graph, Vertices);
             sectionBuffer.setLength(0);
             return NEXT;
         }
@@ -425,7 +425,7 @@ public class DOTImporter<V, E>
      * @param position how far into the string we have got.
      * @param sectionBuffer the current section.
      * @param graph the graph we are creating.
-     * @param vertexes the existing set of vertexes that have been created so far.
+     * @param Vertices the existing set of Vertices that have been created so far.
      *
      * @return the next state.
      *
@@ -433,7 +433,7 @@ public class DOTImporter<V, E>
      */
     private int processNode(
         String input, int position, StringBuilder sectionBuffer, Graph<V, E> graph,
-        Map<String, V> vertexes)
+        Map<String, V> Vertices)
         throws ImportException
     {
         if (isStartOfLineComment(input, position)) {
@@ -450,7 +450,7 @@ public class DOTImporter<V, E>
             return NODE_QUOTES;
         }
         if ((current == ']') || (current == ';')) {
-            processCompleteNode(sectionBuffer.toString(), graph, vertexes);
+            processCompleteNode(sectionBuffer.toString(), graph, Vertices);
             sectionBuffer.setLength(0);
             return NEXT;
         }
@@ -483,7 +483,7 @@ public class DOTImporter<V, E>
 
     private int processEdge(
         String input, int position, StringBuilder sectionBuffer, Graph<V, E> graph,
-        Map<String, V> vertexes)
+        Map<String, V> Vertices)
         throws ImportException
     {
         if (isStartOfLineComment(input, position)) {
@@ -501,7 +501,7 @@ public class DOTImporter<V, E>
         }
 
         if ((current == ';') || (current == '\r') || (current == '\n')) {
-            processCompleteEdge(sectionBuffer.toString(), graph, vertexes);
+            processCompleteEdge(sectionBuffer.toString(), graph, Vertices);
             sectionBuffer.setLength(0);
             return NEXT;
         }
@@ -574,7 +574,7 @@ public class DOTImporter<V, E>
         return false;
     }
 
-    private void processCompleteNode(String node, Graph<V, E> graph, Map<String, V> vertexes)
+    private void processCompleteNode(String node, Graph<V, E> graph, Map<String, V> Vertices)
         throws ImportException
     {
         Map<String, String> attributes = extractAttributes(node);
@@ -585,11 +585,11 @@ public class DOTImporter<V, E>
             id = node.substring(0, node.indexOf('[')).trim();
         }
 
-        V existing = vertexes.get(id);
+        V existing = Vertices.get(id);
         if (existing == null) {
             V vertex = vertexProvider.buildVertex(id, attributes);
             graph.addVertex(vertex);
-            vertexes.put(id, vertex);
+            Vertices.put(id, vertex);
         } else {
             if (vertexUpdater != null) {
                 vertexUpdater.update(existing, attributes);
@@ -600,7 +600,7 @@ public class DOTImporter<V, E>
         }
     }
 
-    private void processCompleteEdge(String edge, Graph<V, E> graph, Map<String, V> vertexes)
+    private void processCompleteEdge(String edge, Graph<V, E> graph, Map<String, V> Vertices)
         throws ImportException
     {
         Map<String, String> attributes = extractAttributes(edge);
@@ -609,8 +609,8 @@ public class DOTImporter<V, E>
 
         // for each pair of ids in the list create an edge.
         for (int i = 0; i < (ids.size() - 1); i++) {
-            V v1 = getVertex(ids.get(i), vertexes, graph);
-            V v2 = getVertex(ids.get(i + 1), vertexes, graph);
+            V v1 = getVertex(ids.get(i), Vertices, graph);
+            V v2 = getVertex(ids.get(i + 1), Vertices, graph);
 
             E resultEdge = edgeProvider.buildEdge(v1, v2, attributes.get("label"), attributes);
             graph.addEdge(v1, v2, resultEdge);
@@ -619,13 +619,13 @@ public class DOTImporter<V, E>
 
     // if a vertex id doesn't already exist create one for it
     // with no attributes.
-    private V getVertex(String id, Map<String, V> vertexes, Graph<V, E> graph)
+    private V getVertex(String id, Map<String, V> Vertices, Graph<V, E> graph)
     {
-        V v = vertexes.get(id);
+        V v = Vertices.get(id);
         if (v == null) {
             v = vertexProvider.buildVertex(id, new HashMap<>());
             graph.addVertex(v);
-            vertexes.put(id, v);
+            Vertices.put(id, v);
         }
         return v;
     }

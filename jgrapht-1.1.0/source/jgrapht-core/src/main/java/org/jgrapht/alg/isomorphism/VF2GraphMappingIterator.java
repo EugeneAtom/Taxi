@@ -81,7 +81,7 @@ class VF2GraphMappingIterator<V, E>
                         return s.getCurrentMapping();
                     }
 
-                    s.resetAddVertexes();
+                    s.resetAddVertices();
                 }
             }
 

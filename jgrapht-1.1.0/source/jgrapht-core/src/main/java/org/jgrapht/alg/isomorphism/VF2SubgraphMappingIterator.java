@@ -75,7 +75,7 @@ class VF2SubgraphMappingIterator<V, E>
                         return s.getCurrentMapping();
                     }
 
-                    s.resetAddVertexes();
+                    s.resetAddVertices();
                 }
             }
 

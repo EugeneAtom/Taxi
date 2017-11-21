@@ -148,10 +148,10 @@ public class SubgraphTest
         baseGraph.addVertex(v1);
         baseGraph.addVertex(v2);
 
-        Set<Object> initialVertexes = new LinkedHashSet<>();
-        initialVertexes.add(v1);
+        Set<Object> initialVertices = new LinkedHashSet<>();
+        initialVertices.add(v1);
         Subgraph<Object, DefaultEdge, ListenableGraph<Object, DefaultEdge>> subgraph =
-            new Subgraph<>(baseGraph, initialVertexes, null);
+            new Subgraph<>(baseGraph, initialVertices, null);
         baseGraph.addEdge(v1, v2);
 
         assertFalse(subgraph.containsEdge(v1, v2));
