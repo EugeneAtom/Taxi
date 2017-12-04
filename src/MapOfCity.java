@@ -22,6 +22,16 @@ import org.jgrapht.graph.SimpleWeightedGraph;
 
 
 public class MapOfCity implements Serializable {
+
+    String name;
+    int numberOfVertices;
+
+    public MapOfCity(String name, int numberOfVertices) {
+        this.name = name;
+        this.numberOfVertices = numberOfVertices;
+        Graph map = createMap(numberOfVertices);
+    }
+
     public static Graph createMap(int numberOfVertices) {
 
         // create weighted graph
@@ -66,7 +76,7 @@ public class MapOfCity implements Serializable {
 
     public static ArrayList<Client> createClients(Graph graph, ArrayList<String> namesOfClients) {
         ArrayList VerticesList = new ArrayList(graph.vertexSet());
-        ArrayList<Client> clientsList = new ArrayList();
+        ArrayList<Client> clients = new ArrayList();
 
         for (String nameOfClient : namesOfClients) {
 
@@ -81,10 +91,10 @@ public class MapOfCity implements Serializable {
 
             Client client = new Client(nameOfClient, source, target);
 
-            clientsList.add(client);
+            clients.add(client);
         }
 
-        return clientsList;
+        return clients;
     }
 
     public static ArrayList<Taxi> createTaxi(Graph graph, ArrayList<String> taxists) {
