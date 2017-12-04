@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 
 public class Controller {
-    public static MapOfCity getMap(String name, int vertices) {
-        MapOfCity map = new MapOfCity(name, vertices);
+    public static MapOfCity getMap(String name, int horizontal, int vertical) {
+        MapOfCity map = new MapOfCity(name, horizontal, vertical);
         return map;
     }
 

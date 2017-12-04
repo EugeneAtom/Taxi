@@ -24,37 +24,91 @@ import org.jgrapht.graph.SimpleWeightedGraph;
 public class MapOfCity implements Serializable {
 
     String name;
-    int numberOfVertices;
+    int horizontalVertices;
+    int verticalVertices;
+    int allVertices;
 
-    public MapOfCity(String name, int numberOfVertices) {
+    public MapOfCity(String name, int horizontalVertices, int verticalVertices) {
         this.name = name;
-        this.numberOfVertices = numberOfVertices;
-        Graph map = createMap(numberOfVertices);
+        this.horizontalVertices = horizontalVertices;
+        this.verticalVertices = verticalVertices;
+        this.allVertices = horizontalVertices * verticalVertices;
+        Graph map = createMap(horizontalVertices, verticalVertices);
     }
 
-    public static Graph createMap(int numberOfVertices) {
+    public ArrayList<Integer> loop(int begin, int end) {
+        ArrayList<Integer> array = new ArrayList<Integer>(end - begin);
+        for (int i = begin; i < end; i++) {
+            array.add(i);
+        }
+        return array;
+    }
+
+    public Graph createMap(int horizontalVertices, int verticalVertices) {
 
         // create weighted graph
         Graph<String, DefaultWeightedEdge> mapOfCity
                 = new SimpleWeightedGraph<>(DefaultWeightedEdge.class);
 
         // generate Vertices
-        for (int i = 1; i <= numberOfVertices; i++) {
+        for (int i = 0; i < allVertices; i++) {
             mapOfCity.addVertex("v" + i);
         }
 
         // generate random edges
+        int begin = 0;
+        int end = horizontalVertices;
         Random rand = new Random();
-        for (int i = 1; i <= numberOfVertices; i++) {
-            for (int j = 0; j < 2; j++) {
-                int numberOfVertex = rand.nextInt(numberOfVertices) + 1;
-                String targetVertex = "v" + numberOfVertex;
-                if (numberOfVertex != i && !mapOfCity.containsEdge("v" + i, targetVertex)) {
-                    DefaultWeightedEdge e = mapOfCity.addEdge("v" + i, targetVertex);
-                    mapOfCity.setEdgeWeight(e, rand.nextInt(numberOfVertices) + 10);
+        for (int i = 0; i < verticalVertices; i++) {
+            ArrayList<Integer> listOfEdgesHorizontal = loop(begin, end);
+            ArrayList<Integer> listOfEdgesVertical = loop(begin, end);
+            int cohesion = listOfEdgesHorizontal.size() / 4 * 3;
+            for (int j = 0; j < cohesion; j++) {
+                System.out.println(listOfEdgesHorizontal);
+                System.out.println(listOfEdgesVertical);
+
+                int randIndexHorizontal = rand.nextInt(listOfEdgesHorizontal.size() - 1);
+                int randElementHorizontal = listOfEdgesHorizontal.get(randIndexHorizontal);
+                int randIndexVertical = rand.nextInt(listOfEdgesVertical.size());
+                int randElementVertical = listOfEdgesVertical.get(randIndexVertical);
+
+                String sourceVertexHorizontal = "v" + randElementHorizontal;
+                int nextHorizontal = randElementHorizontal + 1;
+
+                String sourceVertexVertical = "v" + randElementVertical;
+                int nextVertical = randElementVertical + horizontalVertices;
+
+                String targetVertexHorizontal = "v" + nextHorizontal;
+                String targetVertexVertical = "v" + nextVertical;
+
+                DefaultWeightedEdge horizontal = mapOfCity.addEdge(sourceVertexHorizontal, targetVertexHorizontal);
+                mapOfCity.setEdgeWeight(horizontal, rand.nextInt(allVertices / 10) + 5);
+                System.out.println(sourceVertexHorizontal + " " + targetVertexHorizontal);
+                listOfEdgesHorizontal.remove(randIndexHorizontal);
+
+                if (nextVertical < allVertices) {
+                    DefaultWeightedEdge vertical = mapOfCity.addEdge(sourceVertexVertical, targetVertexVertical);
+                    System.out.println(sourceVertexVertical + " " + targetVertexVertical);
+                    mapOfCity.setEdgeWeight(vertical, rand.nextInt(allVertices / 10) + 5);
+                    listOfEdgesVertical.remove(randIndexVertical);
                 }
             }
+            begin = end;
+            end = begin + horizontalVertices;
         }
+
+
+        //Random rand = new Random();
+        //for (int i = 1; i <= numberOfVertices; i++) {
+        //    for (int j = 0; j < 2; j++) {
+          //      int numberOfVertex = rand.nextInt(numberOfVertices) + 1;
+            //    String targetVertex = "v" + numberOfVertex;
+              //  if (numberOfVertex != i && !mapOfCity.containsEdge("v" + i, targetVertex)) {
+                //    DefaultWeightedEdge e = mapOfCity.addEdge("v" + i, targetVertex);
+                  //  mapOfCity.setEdgeWeight(e, rand.nextInt(numberOfVertices) + 10);
+                //}
+            //}
+        //}
 
         return mapOfCity;
     }
