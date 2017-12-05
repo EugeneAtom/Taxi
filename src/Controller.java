@@ -25,7 +25,7 @@ public class Controller {
         return clients;
     }
 
-    public  static ArrayList<Client> loadClients(String address) throws IOException, ClassNotFoundException {
+    public static ArrayList<Client> loadClients(String address) throws IOException, ClassNotFoundException {
         Objects objects = new Objects();
         return objects.LoadFromFile(address);
     }
@@ -37,5 +37,8 @@ public class Controller {
         return taxi;
     }
 
-    public static
+    public static ArrayList<Taxi> loadTaxi(String address) throws IOException, ClassNotFoundException {
+        Objects objects = new Objects();
+        return objects.LoadFromFile(address);
+    }
 }

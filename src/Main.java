@@ -26,12 +26,10 @@ public class Main {
 
         String taxiAddress = "/home/Eugene/Taxi/taxi.txt";
         ArrayList<String> taxists = new ArrayList<>(Arrays.asList("A701BC", "X702YT"));
-        ArrayList<Taxi> taxis = mapOfCity.createTaxi(taxists);
-        Taxi.SaveToFile(taxis.get(0), taxiAddress);
-        Taxi taxi = Taxi.LoadFromFile(taxiAddress);
+        ArrayList<Taxi> taxi = Controller.createAndSaveTaxi(mapOfCity, taxiAddress, taxists);
         System.out.println(taxi);
 
         Path path = new Path(mapOfCity);
-        //System.out.println(path.createPath(client, taxi));
+        System.out.println(path.createPath(clients.get(0), taxi.get(0)));
     }
 }
