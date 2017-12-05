@@ -9,11 +9,11 @@ public class Controller {
         return map;
     }
 
-    public static ArrayList<Client> getClients(Graph graph, ArrayList<String> namesOfClients) {
-        return MapOfCity.createClients(graph, namesOfClients);
+    public static ArrayList<Client> getClients(MapOfCity mapOfCity, ArrayList<String> namesOfClients) {
+        return mapOfCity.createClients(namesOfClients);
     }
 
-    public static ArrayList<Taxi> getTaxi(Graph graph, ArrayList<String> taxists) {
-        return MapOfCity.createTaxi(graph, taxists);
+    public static ArrayList<Taxi> getTaxi(MapOfCity mapOfCity, ArrayList<String> taxists) {
+        return mapOfCity.createTaxi(taxists);
     }
 }

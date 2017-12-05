@@ -27,13 +27,25 @@ public class MapOfCity implements Serializable {
     int horizontalVertices;
     int verticalVertices;
     int allVertices;
+    Graph map;
 
     public MapOfCity(String name, int horizontalVertices, int verticalVertices) {
         this.name = name;
         this.horizontalVertices = horizontalVertices;
         this.verticalVertices = verticalVertices;
         this.allVertices = horizontalVertices * verticalVertices;
-        Graph map = createMap(horizontalVertices, verticalVertices);
+        this.map = createMap(horizontalVertices, verticalVertices);
+    }
+
+    @Override
+    public String toString() {
+        return "MapOfCity{" +
+                "name='" + name + '\'' +
+                ", horizontalVertices=" + horizontalVertices +
+                ", verticalVertices=" + verticalVertices +
+                ", allVertices=" + allVertices +
+                ", map=" + map +
+                '}';
     }
 
     public ArrayList<Integer> loop(int begin, int end) {
@@ -64,8 +76,8 @@ public class MapOfCity implements Serializable {
             ArrayList<Integer> listOfEdgesVertical = loop(begin, end);
             int cohesion = listOfEdgesHorizontal.size() / 4 * 3;
             for (int j = 0; j < cohesion; j++) {
-                System.out.println(listOfEdgesHorizontal);
-                System.out.println(listOfEdgesVertical);
+                //System.out.println(listOfEdgesHorizontal);
+                //System.out.println(listOfEdgesVertical);
 
                 int randIndexHorizontal = rand.nextInt(listOfEdgesHorizontal.size() - 1);
                 int randElementHorizontal = listOfEdgesHorizontal.get(randIndexHorizontal);
@@ -83,12 +95,12 @@ public class MapOfCity implements Serializable {
 
                 DefaultWeightedEdge horizontal = mapOfCity.addEdge(sourceVertexHorizontal, targetVertexHorizontal);
                 mapOfCity.setEdgeWeight(horizontal, rand.nextInt(allVertices / 10) + 5);
-                System.out.println(sourceVertexHorizontal + " " + targetVertexHorizontal);
+                //System.out.println(sourceVertexHorizontal + " " + targetVertexHorizontal);
                 listOfEdgesHorizontal.remove(randIndexHorizontal);
 
                 if (nextVertical < allVertices) {
                     DefaultWeightedEdge vertical = mapOfCity.addEdge(sourceVertexVertical, targetVertexVertical);
-                    System.out.println(sourceVertexVertical + " " + targetVertexVertical);
+                    //System.out.println(sourceVertexVertical + " " + targetVertexVertical);
                     mapOfCity.setEdgeWeight(vertical, rand.nextInt(allVertices / 10) + 5);
                     listOfEdgesVertical.remove(randIndexVertical);
                 }
@@ -97,39 +109,26 @@ public class MapOfCity implements Serializable {
             end = begin + horizontalVertices;
         }
 
-
-        //Random rand = new Random();
-        //for (int i = 1; i <= numberOfVertices; i++) {
-        //    for (int j = 0; j < 2; j++) {
-          //      int numberOfVertex = rand.nextInt(numberOfVertices) + 1;
-            //    String targetVertex = "v" + numberOfVertex;
-              //  if (numberOfVertex != i && !mapOfCity.containsEdge("v" + i, targetVertex)) {
-                //    DefaultWeightedEdge e = mapOfCity.addEdge("v" + i, targetVertex);
-                  //  mapOfCity.setEdgeWeight(e, rand.nextInt(numberOfVertices) + 10);
-                //}
-            //}
-        //}
-
         return mapOfCity;
     }
 
-    public static void SaveToFile(Graph mapOfCity, String adress) throws IOException {
+    public static void SaveToFile(MapOfCity mapOfCity, String adress) throws IOException {
         FileOutputStream fos = new FileOutputStream(adress);
         ObjectOutputStream asd = new ObjectOutputStream(fos);
         asd.writeObject(mapOfCity);
         asd.close();
     }
 
-    public static Graph LoadFromFile(String adress) throws IOException, ClassNotFoundException {
+    public static MapOfCity LoadFromFile(String adress) throws IOException, ClassNotFoundException {
         FileInputStream fis = new FileInputStream(adress);
         ObjectInputStream asd = new ObjectInputStream(fis);
-        Graph obj = (Graph) asd.readObject();
+        MapOfCity obj = (MapOfCity) asd.readObject();
         asd.close();
         return obj;
     }
 
-    public static ArrayList<Client> createClients(Graph graph, ArrayList<String> namesOfClients) {
-        ArrayList VerticesList = new ArrayList(graph.vertexSet());
+    public ArrayList<Client> createClients(ArrayList<String> namesOfClients) {
+        ArrayList VerticesList = new ArrayList(map.vertexSet());
         ArrayList<Client> clients = new ArrayList();
 
         for (String nameOfClient : namesOfClients) {
@@ -151,8 +150,8 @@ public class MapOfCity implements Serializable {
         return clients;
     }
 
-    public static ArrayList<Taxi> createTaxi(Graph graph, ArrayList<String> taxists) {
-        ArrayList VerticesList = new ArrayList(graph.vertexSet());
+    public ArrayList<Taxi> createTaxi(ArrayList<String> taxists) {
+        ArrayList VerticesList = new ArrayList(map.vertexSet());
         ArrayList<Taxi> taxiList = new ArrayList();
         for (int i = 0; i < taxists.size(); i++) {
             int intSource = new Random().nextInt(VerticesList.size());
