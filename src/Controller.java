@@ -1,7 +1,4 @@
-import org.jgrapht.Graph;
-
 import java.io.IOException;
-import java.security.SecureRandom;
 import java.util.ArrayList;
 
 
@@ -18,8 +15,8 @@ public class Controller {
         return mapOfCity;
     }
 
-    public static ArrayList<Client> createAndSaveClients(MapOfCity mapOfCity, String address, ArrayList<String> namesOfClients) throws IOException {
-        ArrayList<Client> clients = mapOfCity.createClients(namesOfClients);
+    public static ArrayList<Client> createAndSaveClients(MapOfCity mapOfCity, String address, int numberOfClients) throws IOException {
+        ArrayList<Client> clients = mapOfCity.createClients(numberOfClients);
         Objects serializableClients = new Objects(clients);
         serializableClients.SaveToFile(address);
         return clients;
@@ -30,8 +27,8 @@ public class Controller {
         return objects.LoadFromFile(address);
     }
 
-    public static ArrayList<Taxi> createAndSaveTaxi(MapOfCity mapOfCity, String address, ArrayList<String> taxists) throws IOException {
-        ArrayList<Taxi> taxi = mapOfCity.createTaxi(taxists);
+    public static ArrayList<Taxi> createAndSaveTaxi(MapOfCity mapOfCity, String address, int numberOfTaxists) throws IOException {
+        ArrayList<Taxi> taxi = mapOfCity.createTaxi(numberOfTaxists);
         Objects serializableTaxi = new Objects(taxi);
         serializableTaxi.SaveToFile(address);
         return taxi;

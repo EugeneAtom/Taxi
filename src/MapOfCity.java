@@ -4,20 +4,8 @@ import java.awt.Rectangle;
 
 import java.io.*;
 import java.util.*;
-
-import javax.swing.JApplet;
-import javax.swing.JFrame;
-
-import org.jgraph.JGraph;
-import org.jgraph.graph.DefaultGraphCell;
-import org.jgraph.graph.GraphConstants;
-
 import org.jgrapht.Graph;
-import org.jgrapht.ListenableGraph;
-import org.jgrapht.ext.JGraphModelAdapter;
 import org.jgrapht.graph.DefaultWeightedEdge;
-import org.jgrapht.graph.ListenableDirectedGraph;
-import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.SimpleWeightedGraph;
 
 
@@ -74,11 +62,8 @@ public class MapOfCity implements Serializable {
         for (int i = 0; i < verticalVertices; i++) {
             ArrayList<Integer> listOfEdgesHorizontal = loop(begin, end);
             ArrayList<Integer> listOfEdgesVertical = loop(begin, end);
-            int cohesion = listOfEdgesHorizontal.size() / 4 * 3;
+            int cohesion = listOfEdgesHorizontal.size() / 5 * 4;
             for (int j = 0; j < cohesion; j++) {
-                //System.out.println(listOfEdgesHorizontal);
-                //System.out.println(listOfEdgesVertical);
-
                 int randIndexHorizontal = rand.nextInt(listOfEdgesHorizontal.size() - 1);
                 int randElementHorizontal = listOfEdgesHorizontal.get(randIndexHorizontal);
                 int randIndexVertical = rand.nextInt(listOfEdgesVertical.size());
@@ -95,12 +80,10 @@ public class MapOfCity implements Serializable {
 
                 DefaultWeightedEdge horizontal = mapOfCity.addEdge(sourceVertexHorizontal, targetVertexHorizontal);
                 mapOfCity.setEdgeWeight(horizontal, rand.nextInt(allVertices / 10) + 5);
-                //System.out.println(sourceVertexHorizontal + " " + targetVertexHorizontal);
                 listOfEdgesHorizontal.remove(randIndexHorizontal);
 
                 if (nextVertical < allVertices) {
                     DefaultWeightedEdge vertical = mapOfCity.addEdge(sourceVertexVertical, targetVertexVertical);
-                    //System.out.println(sourceVertexVertical + " " + targetVertexVertical);
                     mapOfCity.setEdgeWeight(vertical, rand.nextInt(allVertices / 10) + 5);
                     listOfEdgesVertical.remove(randIndexVertical);
                 }
@@ -127,11 +110,11 @@ public class MapOfCity implements Serializable {
         return obj;
     }
 
-    public ArrayList<Client> createClients(ArrayList<String> namesOfClients) {
+    public ArrayList<Client> createClients(int numberOfClients) {
         ArrayList VerticesList = new ArrayList(map.vertexSet());
         ArrayList<Client> clients = new ArrayList();
 
-        for (String nameOfClient : namesOfClients) {
+        for (int i = 0; i < numberOfClients; i++) {
 
             int intSource = new Random().nextInt(VerticesList.size());
             String source = (String) VerticesList.get(intSource);
@@ -142,7 +125,7 @@ public class MapOfCity implements Serializable {
             }
             String target = (String) VerticesList.get(intTarget);
 
-            Client client = new Client(nameOfClient, source, target);
+            Client client = new Client(i, source, target);
 
             clients.add(client);
         }
@@ -150,13 +133,13 @@ public class MapOfCity implements Serializable {
         return clients;
     }
 
-    public ArrayList<Taxi> createTaxi(ArrayList<String> taxists) {
+    public ArrayList<Taxi> createTaxi(int numberOfTaxi) {
         ArrayList VerticesList = new ArrayList(map.vertexSet());
         ArrayList<Taxi> taxiList = new ArrayList();
-        for (int i = 0; i < taxists.size(); i++) {
+        for (int i = 0; i < numberOfTaxi; i++) {
             int intSource = new Random().nextInt(VerticesList.size());
             String source = (String) VerticesList.get(intSource);
-            Taxi taxi = new Taxi(taxists.get(i), source);
+            Taxi taxi = new Taxi(i, source);
             taxiList.add(taxi);
             VerticesList.remove(intSource);
         }

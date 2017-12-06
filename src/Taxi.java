@@ -1,19 +1,22 @@
 import java.io.*;
 
 public class Taxi implements Serializable {
-    String number;
+    int number;
     String sourceVertex;
+    boolean isFree;
 
-    public Taxi(String number, String sourceVertex) {
+    public Taxi(int number, String sourceVertex) {
         this.number = number;
         this.sourceVertex = sourceVertex;
+        this.isFree = true;
     }
 
     @Override
     public String toString() {
         return "Taxi{" +
-                " number=" + number +
+                "number='" + number + '\'' +
                 ", sourceVertex='" + sourceVertex + '\'' +
+                ", isFree=" + isFree +
                 '}';
     }
 

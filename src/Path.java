@@ -1,4 +1,3 @@
-import org.jgrapht.Graph;
 import org.jgrapht.alg.shortestpath.ALTAdmissibleHeuristic;
 import org.jgrapht.alg.shortestpath.AStarShortestPath;
 
@@ -10,6 +9,8 @@ public class Path {
     }
 
     public String createPath(Client client, Taxi taxi) {
+        taxi.isFree = false;
+        client.isWait = false;
         String clientSource = client.sourceVertex;
         String clientTarget = client.targetVertex;
         String taxiSource = taxi.sourceVertex;
@@ -21,14 +22,15 @@ public class Path {
         if (taxiSource != clientSource) {
             AStarShortestPath taxiSourceTargetPath = new AStarShortestPath(mapOfCity.map, heuristic);
             AStarShortestPath clientSourceTargetPath = new AStarShortestPath(mapOfCity.map, heuristic);
-            path = (taxiSourceTargetPath.getPath(taxiSource, taxiTarget)).toString() +
-                    (clientSourceTargetPath.getPath(clientSource, clientTarget)).toString();
+            path = "Taxi to client: " + (taxiSourceTargetPath.getPath(taxiSource, taxiTarget)).toString() +
+                    "  Client from source to target: " + (clientSourceTargetPath.getPath(clientSource, clientTarget)).toString();
         }
         else {
             AStarShortestPath clientSourceTargetPath = new AStarShortestPath(mapOfCity.map, heuristic);
             path = (clientSourceTargetPath.getPath(clientSource, clientTarget)).toString();
         }
 
+        taxi.isFree = true;
         return path;
     }
 }

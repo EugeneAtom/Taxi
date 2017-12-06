@@ -1,26 +1,26 @@
-import org.jgrapht.Graph;
-
 import java.io.*;
-import java.util.ArrayList;
 
 public class Client implements Serializable {
-    String name;
+    int id;
     String sourceVertex;
     String targetVertex;
-
-    public Client(String name, String sourceVertex, String targetVertex) {
-        this.name = name;
-        this.sourceVertex = sourceVertex;
-        this.targetVertex = targetVertex;
-    }
+    boolean isWait;
 
     @Override
     public String toString() {
         return "Client{" +
-                " name='" + name + '\'' +
+                "id=" + id +
                 ", sourceVertex='" + sourceVertex + '\'' +
                 ", targetVertex='" + targetVertex + '\'' +
+                ", isWait=" + isWait +
                 '}';
+    }
+
+    public Client(int id, String sourceVertex, String targetVertex) {
+        this.id = id;
+        this.sourceVertex = sourceVertex;
+        this.targetVertex = targetVertex;
+        this.isWait = true;
     }
 
     public static void SaveToFile(Client client, String adress) throws IOException {

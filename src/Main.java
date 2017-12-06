@@ -14,22 +14,23 @@ public class Main {
     public static void main(String [] args) throws IOException, ClassNotFoundException {
         String mapName = "Moscow";
         String mapAddress = "/home/Eugene/Taxi/map" + mapName + ".txt";
-        //MapOfCity mapOfCity = Controller.createAndSaveMap(mapAddress, mapName, 30, 50);
-        MapOfCity mapOfCity = Controller.loadMap(mapAddress);
+        MapOfCity mapOfCity = Controller.createAndSaveMap(mapAddress, mapName, 6, 5);
+        //MapOfCity mapOfCity = Controller.loadMap(mapAddress);
         System.out.println(mapOfCity);
 
         String clientAddress = "/home/Eugene/Taxi/client.txt";
-        ArrayList<String> namesOfClients = new ArrayList<>(Arrays.asList("Ar'chill", "Dimitrii"));
-        //ArrayList<Client> clients = Controller.createAndSaveClients(mapOfCity, clientAddress, namesOfClients);
-        ArrayList<Client> clients = Controller.loadClients(clientAddress);
+        int numberOfClients = 10;
+        ArrayList<Client> clients = Controller.createAndSaveClients(mapOfCity, clientAddress, numberOfClients);
+        //ArrayList<Client> clients = Controller.loadClients(clientAddress);
         System.out.println(clients);
 
         String taxiAddress = "/home/Eugene/Taxi/taxi.txt";
-        ArrayList<String> taxists = new ArrayList<>(Arrays.asList("A701BC", "X702YT"));
-        ArrayList<Taxi> taxi = Controller.createAndSaveTaxi(mapOfCity, taxiAddress, taxists);
+        int numberOfTaxi = 4;
+        ArrayList<Taxi> taxi = Controller.createAndSaveTaxi(mapOfCity, taxiAddress, numberOfTaxi);
         System.out.println(taxi);
 
         Path path = new Path(mapOfCity);
+        System.out.println(mapOfCity.map.edgeSet());
         System.out.println(path.createPath(clients.get(0), taxi.get(0)));
     }
 }
