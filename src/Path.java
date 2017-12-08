@@ -17,6 +17,7 @@ public class Path implements Runnable {
         this.mapOfCity = mapOfCity;
         this.clients = clients;
         this.taxi = taxi;
+        this.paths = new ArrayList();
     }
 
     public Path(MapOfCity mapOfCity) {
@@ -79,12 +80,10 @@ public class Path implements Runnable {
                     luckyClient = client;
                     index = i;
                 }
-                //System.out.println(shortestDistance + " " + distance + " " + luckyClient);
             }
             ArrayList<String> pathList = createPath(luckyClient, taxi);
             clients.remove(index);
-            //paths.add(pathList);
-            System.out.println("EEE! " + pathList);
+            paths.add(pathList);
         }
     }
 }
