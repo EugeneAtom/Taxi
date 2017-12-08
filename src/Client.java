@@ -5,7 +5,7 @@ public class Client implements Serializable {
     String name;
     String sourceVertex;
     String targetVertex;
-    boolean isWait;
+    boolean isWait = true;
 
     @Override
     public String toString() {
@@ -22,18 +22,16 @@ public class Client implements Serializable {
         this.id = id;
         this.sourceVertex = sourceVertex;
         this.targetVertex = targetVertex;
-        this.isWait = true;
     }
 
-    public Client(String name, String sourceVertex, String targetVertex, boolean isWait) {
+    public Client(String name, String sourceVertex, String targetVertex) {
         this.name = name;
         this.sourceVertex = sourceVertex;
         this.targetVertex = targetVertex;
-        this.isWait = isWait;
     }
 
-    public Client() {
-    }
+    //public Client() {
+    //}
 
     public static void SaveToFile(Client client, String adress) throws IOException {
         FileOutputStream fos = new FileOutputStream(adress);

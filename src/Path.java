@@ -10,6 +10,8 @@ public class Path implements Runnable {
     MapOfCity mapOfCity;
     ArrayList<Client> clients;
     Taxi taxi;
+    public volatile ArrayList paths;
+
 
     public Path(MapOfCity mapOfCity, ArrayList<Client> clients, Taxi taxi) {
         this.mapOfCity = mapOfCity;
@@ -22,6 +24,7 @@ public class Path implements Runnable {
     }
 
     public ArrayList<String> createPath(Client client, Taxi taxi) {
+        System.out.println("client is: " + client);
         taxi.isFree = false;
         client.isWait = false;
         String clientSource = client.sourceVertex;
@@ -35,7 +38,9 @@ public class Path implements Runnable {
         if (taxiSource != clientSource) {
             AStarShortestPath taxiSourceTargetPath = new AStarShortestPath(mapOfCity.map, heuristic);
             AStarShortestPath clientSourceTargetPath = new AStarShortestPath(mapOfCity.map, heuristic);
-
+            System.out.println(taxiSource + taxiTarget);
+            System.out.println(client);
+            System.out.println(taxi);
             String beginString = (taxiSourceTargetPath.getPath(taxiSource, taxiTarget)).toString();
             beginString = beginString.substring(1, beginString.length() - 1);
             String[] begin = beginString.split(", ");
@@ -59,17 +64,27 @@ public class Path implements Runnable {
 
     @Override
     public void run() {
-        double shortestDistance = Double.POSITIVE_INFINITY;
         ALTAdmissibleHeuristic heuristic = new ALTAdmissibleHeuristic(mapOfCity.map, mapOfCity.map.vertexSet());
         AStarShortestPath shortestPath = new AStarShortestPath(mapOfCity.map, heuristic);
-        Client luckyClient = new Client();
-        for (Client client : clients) {
-            double distance = shortestPath.getPathWeight(taxi.sourceVertex, client.sourceVertex);
-            if (distance < shortestDistance) {
-                shortestDistance = distance;
-                luckyClient = client;
+
+        while (clients.size() > 0) {
+            double shortestDistance = Double.POSITIVE_INFINITY;
+            Client luckyClient = null;
+            int index = 0;
+            for (int i = 0; i < clients.size(); i++) {
+                Client client = clients.get(i);
+                double distance = shortestPath.getPathWeight(taxi.sourceVertex, client.sourceVertex);
+                if (distance < shortestDistance) {
+                    shortestDistance = distance;
+                    luckyClient = client;
+                    index = i;
+                }
+                //System.out.println(shortestDistance + " " + distance + " " + luckyClient);
             }
+            ArrayList<String> pathList = createPath(luckyClient, taxi);
+            clients.remove(index);
+            //paths.add(pathList);
+            System.out.println("EEE! " + pathList);
         }
-        String pathString = shortestPath.getPath(taxi.sourceVertex, luckyClient.sourceVertex).toString();
     }
 }
