@@ -55,7 +55,9 @@ public class Visual extends JFrame {
             //OUR TEST STUFFFF
             MapOfCity mapOfCity = null;
             try {
-                mapOfCity = Controller.createAndSaveMap("C:\\Users\\Sergey\\Taxi\\TESTMAP","TESTMAP,",30,20);
+                String sergeyAddress = "C:\\Users\\Sergey\\Taxi\\TESTMAP";
+                String eugeneAddress = "/home/Eugene/Taxi/Test map";
+                mapOfCity = Controller.createAndSaveMap(eugeneAddress,"TESTMAP,",30,20);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -66,9 +68,9 @@ public class Visual extends JFrame {
 
 
             //test TAxi
-            Taxi newCab = new Taxi("AcsF232V","v54");
+            Taxi newCab = new Taxi(232,"v54");
             //test Passenger
-            Client newClien = new Client("dMaslow","v359","v220");
+            Client newClien = new Client(6,"v359","v220");
 
             //basicPointsWhereWeStartToDraw
             int currentHieght = 10;

@@ -33,9 +33,6 @@ public class Main {
         System.out.println(mapOfCity.map.edgeSet());
         System.out.println(taxi.get(0).sourceVertex);
         ArrayList pathList = path.createPath(clients.get(0), taxi.get(0));
-        for (Object letter : pathList) {
-            System.out.println(letter);
-        }
         System.out.println(pathList);
         System.out.println(taxi.get(0).sourceVertex);
     }

@@ -6,8 +6,16 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Path {
+public class Path implements Runnable {
     MapOfCity mapOfCity;
+    ArrayList<Client> clients;
+    Taxi taxi;
+
+    public Path(MapOfCity mapOfCity, ArrayList<Client> clients, Taxi taxi) {
+        this.mapOfCity = mapOfCity;
+        this.clients = clients;
+        this.taxi = taxi;
+    }
 
     public Path(MapOfCity mapOfCity) {
         this.mapOfCity = mapOfCity;
@@ -37,7 +45,6 @@ public class Path {
             String[] end = endString.split(", ");
             String[] both = ArrayUtils.addAll(begin, end);
             path = new ArrayList<>(Arrays.asList(both));
-
         }
         else {
             AStarShortestPath clientSourceTargetPath = new AStarShortestPath(mapOfCity.map, heuristic);
@@ -48,5 +55,21 @@ public class Path {
         taxi.sourceVertex = client.targetVertex;
         taxi.isFree = true;
         return path;
+    }
+
+    @Override
+    public void run() {
+        double shortestDistance = Double.POSITIVE_INFINITY;
+        ALTAdmissibleHeuristic heuristic = new ALTAdmissibleHeuristic(mapOfCity.map, mapOfCity.map.vertexSet());
+        AStarShortestPath shortestPath = new AStarShortestPath(mapOfCity.map, heuristic);
+        Client luckyClient = new Client();
+        for (Client client : clients) {
+            double distance = shortestPath.getPathWeight(taxi.sourceVertex, client.sourceVertex);
+            if (distance < shortestDistance) {
+                shortestDistance = distance;
+                luckyClient = client;
+            }
+        }
+        String pathString = shortestPath.getPath(taxi.sourceVertex, luckyClient.sourceVertex).toString();
     }
 }
