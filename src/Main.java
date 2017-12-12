@@ -29,9 +29,18 @@ public class Main {
         ArrayList<Taxi> taxi = Controller.createAndSaveTaxi(mapOfCity, taxiAddress, numberOfTaxi);
         //System.out.println(taxi);
 
-        Path path = new Path(mapOfCity, clients, taxi.get(0));
-        path.run();
+        for (int i = 0; i < numberOfTaxi; i++) {
+            int clientsLength = clients.size();
+            ArrayList<Client> clientsInThread = new ArrayList<>(clients.subList(i, clientsLength / numberOfTaxi * (i + 1)));
+            Path path = new Path(mapOfCity, clientsInThread, taxi.get(i));
+            path.run();
+            System.out.println("eee" + i);
+        }
+
         System.out.println(mapOfCity.map.edgeSet());
+        for (Client client : clients) {
+            System.out.println(client.isWait);
+        }
 
         //System.out.println(taxi.get(0).sourceVertex);
         //ArrayList pathList = path.createPath(clients.get(0), taxi.get(0));

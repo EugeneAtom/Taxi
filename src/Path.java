@@ -39,9 +39,6 @@ public class Path implements Runnable {
         if (taxiSource != clientSource) {
             AStarShortestPath taxiSourceTargetPath = new AStarShortestPath(mapOfCity.map, heuristic);
             AStarShortestPath clientSourceTargetPath = new AStarShortestPath(mapOfCity.map, heuristic);
-            System.out.println(taxiSource + taxiTarget);
-            System.out.println(client);
-            System.out.println(taxi);
             String beginString = (taxiSourceTargetPath.getPath(taxiSource, taxiTarget)).toString();
             beginString = beginString.substring(1, beginString.length() - 1);
             String[] begin = beginString.split(", ");
