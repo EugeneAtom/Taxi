@@ -12,21 +12,51 @@ public class Visual extends JFrame {
     public static final int CANVAS_WIDTH  = 640;
     public static final int CANVAS_HEIGHT = 480;
 
-    //mustbethesameasinmap
-    int vertexlen = 30;
-    int vertexheight = 20;
+    public MapOfCity visMap;
+    public ArrayList<Taxi> visCabs;
+    public ArrayList<Client> visClients;
 
-    int pixelShiftLine = 30;
-    int pixelShiftColumn = 30;
-    int vertSize = 16;
+
+    //mustbethesameasinmap
+    //int vertexlen = 30;
+    //int vertexheight = 20;
+    private int vertexlen;
+    private int vertexheight;
+
+    private final int pixelShiftLine = 30;
+    private final int pixelShiftColumn = 30;
+    private final int vertSize = 16;
 
     // Declare an instance of the drawing canvas,
     // which is an inner class called DrawCanvas extending javax.swing.JPanel.
-
     private DrawCanvas canvas;
-
+    //  MapOfCity myMap, ArrayList<Taxi> myCabs,
     // Constructor to set up the GUI components and event handlers
-    public Visual() {
+    public Visual(MapOfCity myMap, ArrayList<Taxi> myCabs, ArrayList<Client> myClients ) {
+
+        //initialize some useful stuff
+
+        vertexlen = myMap.horizontalVertices;
+        vertexheight = myMap.verticalVertices ;
+        visMap = myMap;
+        visCabs = myCabs;
+        visClients= myClients;
+
+        /*  canvas = new DrawCanvas();    // Construct the drawing canvas
+        canvas.setPreferredSize(new Dimension(CANVAS_WIDTH, CANVAS_HEIGHT));
+
+        // Set the Drawing JPanel as the JFrame's content-pane
+        Container cp = getContentPane();
+        cp.add(canvas);
+        // or "setContentPane(canvas);"
+
+        setDefaultCloseOperation(EXIT_ON_CLOSE);   // Handle the CLOSE button
+        pack();              // Either pack() the components; or setSize()
+        setTitle("CurentMap");  // "super" JFrame sets the title
+        setVisible(true);    // "super" JFrame show*/
+    }
+    public void DrawMap()
+    {
         canvas = new DrawCanvas();    // Construct the drawing canvas
         canvas.setPreferredSize(new Dimension(CANVAS_WIDTH, CANVAS_HEIGHT));
 
@@ -37,8 +67,8 @@ public class Visual extends JFrame {
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);   // Handle the CLOSE button
         pack();              // Either pack() the components; or setSize()
-        setTitle("......");  // "super" JFrame sets the title
-        setVisible(true);    // "super" JFrame show
+        setTitle("CurentMap");  // "super" JFrame sets the title
+        setVisible(true);    // "super" JFrame show*/
     }
 
     /**
@@ -52,36 +82,19 @@ public class Visual extends JFrame {
             setBackground(Color.BLACK);  // set background color for this JPanel
             g.setColor(Color.WHITE);
 
-            //OUR TEST STUFFFF
-            MapOfCity mapOfCity = null;
-            try {
-                String sergeyAddress = "C:\\Users\\Sergey\\Taxi\\TESTMAP";
-                String eugeneAddress = "/home/Eugene/Taxi/Test map";
-                mapOfCity = Controller.createAndSaveMap(eugeneAddress,"TESTMAP,",30,20);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            System.out.println(mapOfCity);
-
-            //whereWeSaveAllRelations
-            GraphCells VertCells = new GraphCells();
-
-
-            //test TAxi
-            Taxi newCab = new Taxi(232,"v54");
-            //test Passenger
-            Client newClien = new Client(6,"v359","v220");
-
             //basicPointsWhereWeStartToDraw
             int currentHieght = 10;
             int currentLength = 10;
+
+            //whereWeSaveAllRelations
+            GraphCells VertCells = new GraphCells();
 
             for(int i = 0  ; i < vertexheight ; i++  ){
                 for(int j = 0  ; j < vertexlen ; j++  ){
                     
                     g.drawRect(currentLength,currentHieght,vertSize,vertSize);
                     VertCells.AddCell(currentLength,currentHieght,"v" + (i*vertexlen + j));
-                    //addVertStack
+                    /// /addVertStack
                     //int num = i*vertexlen + j;
 
 
@@ -94,17 +107,7 @@ public class Visual extends JFrame {
                    //g.fillRect(VertCells.GetCell("v150").x,VertCells.GetCell("v150").y,vertSize,vertSize)
                 }
 
-            System.out.println("тут");
-            VertCells.PrintThemAll();
-
-            //DRAW ALL TAXIS HERE
-            g.setColor(Color.YELLOW);
-            g.fillRect(VertCells.GetCell(newCab.sourceVertex).x,VertCells.GetCell(newCab.sourceVertex).y,vertSize,vertSize);
-
-            //DRAW ALL CLIENT HERE
-            g.setColor(Color.GREEN);
-
-
+                g.setColor(Color.GREEN);
             for(int i = 0  ; i < vertexheight ; i++  ){
                 for(int j = 0  ; j < vertexlen ; j++  ){
 
@@ -113,42 +116,41 @@ public class Visual extends JFrame {
                     String name2 = "v"+(i*vertexlen + j +1);
                     System.out.println("name2= " + name2);
                     String name3 = "v"+ ((i-1)*vertexlen +j);
-                    if(mapOfCity.map.containsEdge(name1,name2))
-                       g.drawLine(VertCells.GetCell(name1).x+vertSize,VertCells.GetCell(name1).y+vertSize/2,VertCells.GetCell(name2).x,VertCells.GetCell(name2).y+vertSize/2);
-                    if(mapOfCity.map.containsEdge(name1,name3))
+                    if(visMap.map.containsEdge(name1,name2))
+                        g.drawLine(VertCells.GetCell(name1).x+vertSize,VertCells.GetCell(name1).y+vertSize/2,VertCells.GetCell(name2).x,VertCells.GetCell(name2).y+vertSize/2);
+                    if(visMap.map.containsEdge(name1,name3))
                         g.drawLine(VertCells.GetCell(name1).x+vertSize/2,VertCells.GetCell(name1).y,VertCells.GetCell(name3).x+vertSize/2,VertCells.GetCell(name3).y+vertSize);
                 }
                 currentHieght += pixelShiftLine;
-                System.out.println(mapOfCity.map.containsEdge("v7","v37"));
-               // g.drawLine(10,10,100,100);
+                // System.out.println(mapOfCity.map.containsEdge("v7","v37"));
+                // g.drawLine(10,10,100,100);
                 currentLength = 10;
 
                 //g.fillRect(VertCells.GetCell("v150").x,VertCells.GetCell("v150").y,vertSize,vertSize)
             }
 
 
+            System.out.println("тут");
+            VertCells.PrintThemAll();
+            System.out.println(visMap);
+            //DRAW ALL TAXIS HERE
+            g.setColor(Color.YELLOW);
+            //g.fillRect(VertCells.GetCell(newCab.sourceVertex).x,VertCells.GetCell(newCab.sourceVertex).y,vertSize,vertSize);
+            for (Taxi cab:
+                 visCabs) {
+                    g.fillRect(VertCells.GetCell(cab.sourceVertex).x,VertCells.GetCell(cab.sourceVertex).y,vertSize,vertSize);
+            }
+            //DRAW ALL CLIENT HERE
             g.setColor(Color.RED);
-            g.fillRect(VertCells.GetCell(newClien.sourceVertex).x,VertCells.GetCell(newClien.sourceVertex).y,vertSize,vertSize);
-            g.setColor(Color.PINK);
-            g.fillRect(VertCells.GetCell(newClien.targetVertex).x,VertCells.GetCell(newClien.targetVertex).y,vertSize,vertSize);
-            //DRAW PATH HERE
-            Path path = new Path(mapOfCity);
+            for (Client cl:
+                    visClients) {
+                g.fillRect(VertCells.GetCell(cl.sourceVertex).x,VertCells.GetCell(cl.sourceVertex).y,vertSize,vertSize);
+            }
+            //DRAW ALL ROADS HERE
 
-            System.out.println(path.createPath(newClien, newCab));
-            //g.fillRect(VertCells.GetCell("v150").x,VertCells.GetCell("v150").y,vertSize,vertSize);
-            //g.fillRect(VertCells.GetCell("v152").x,VertCells.GetCell("v150").y,vertSize,vertSize);
-
-            // Your custom painting codes. For example,
-            // Drawing primitive shapes
-            /*g.setColor(Color.YELLOW);    // set the drawing color
-            g.drawLine(30, 40, 100, 200);
-            g.drawOval(150, 180, 10, 10);
-            g.drawRect(200, 210, 20, 30);
-            g.setColor(Color.RED);       // change the drawing color
-            g.fillOval(300, 310, 30, 50);
-            g.fillRect(400, 350, 60, 50);
             // Printing texts
-            g.setColor(Color.WHITE);
+
+           /* g.setColor(Color.WHITE);
             g.setFont(new Font("Monospaced", Font.PLAIN, 12));
             g.drawString("Testing custom drawing ...", 10, 20);*/
         }
@@ -199,13 +201,15 @@ public class Visual extends JFrame {
         }
     }
     // The entry main method
-    public static void main(String[] args) throws IOException, ClassNotFoundException {
+    public static void main(String[] args) throws IOException, ClassNotFoundException, InterruptedException {
 
 
-             /* String mapName = "Moscow";
-            String mapAddress = "C:\\Users\\Sergey\\Taxi" + mapName + ".txt";
-            //MapOfCity mapOfCity = Controller.createAndSaveMap(mapAddress, mapName, 30, 50);*/
-       // MapOfCity mapOfCity = Controller.createAndSaveMap("C:\\Users\\Sergey\\Taxi\\TESTMAP","TESTMAP,",20,10);
+      /*  frame.add(component);
+        frame.getContentPane().validate();
+        frame.getContentPane().repaint();*/
+
+
+        MapOfCity mapOfCity = Controller.createAndSaveMap("C:\\Users\\Sergey\\Taxi\\TESTMAP","TESTMAP,",20,10);
        // System.out.println(mapOfCity);
 
          //  String clientAddress = "C:\\Users\\Sergey\\Taxi\\client.txt";
@@ -215,25 +219,62 @@ public class Visual extends JFrame {
             // System.out.println(clients);
 
         //String taxiAddress = "C:\\Users\\Sergey\\Taxi\\taxi.txt";
-        //ArrayList<String> taxists = new ArrayList<>(Arrays.asList("A701BC", "X702YT"));
-        //ArrayList<Taxi> taxi = Controller.createAndSaveTaxi(mapOfCity, taxiAddress, taxists);
+        ArrayList<String> taxists = new ArrayList<>(Arrays.asList("A701BC", "X702YT"));
+        ArrayList<Taxi> taxi = Controller.createAndSaveTaxi(mapOfCity,"C:\\Users\\Sergey\\Taxi\\TESTTAXIS",1);
+        ArrayList<Client> clients = Controller.createAndSaveClients(mapOfCity,"C:\\Users\\Sergey\\Taxi\\TESTCLIENTS",1);
         //System.out.println(taxi);
 
         //Path path = new Path(mapOfCity);
         //System.out.println(path.createPath(clients.get(0), taxi.get(0)));
 
+        clients.get(0).sourceVertex="v1";
+
+        String[] TestVertex = new String[10];
+        TestVertex[0] = "v0";
+        TestVertex[1] = "v1";
+        TestVertex[2] = "v2";
+        TestVertex[3] = "v22";
+        TestVertex[4] = "v23";
+        TestVertex[5] = "v24";
+        TestVertex[6] = "v44";
+        TestVertex[7] = "v45";
+        TestVertex[8] = "v65";
+        TestVertex[9] = "v66";
 
 
+        Visual myMapDraw = new Visual(mapOfCity,taxi,clients);
+        while (true){
+        for (int f = 0 ; f < TestVertex.length ; f++){
 
+            clients.get(0).sourceVertex = TestVertex[f];
+            myMapDraw.DrawMap();
+
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            //change cur vertex
+
+        }}
 
 
 
         // Run the GUI codes on the Event-Dispatching thread for thread safety
-        SwingUtilities.invokeLater(new Runnable() {
+     /*   SwingUtilities.invokeLater(new Runnable() {
+            int counter=0;
             @Override
             public void run() {
-                new Visual(); // Let the constructor do the job
+                Visual myMapDraw = new Visual(mapOfCity,taxi,clients);
+
+                System.out.println();
+                myMapDraw.DrawMap();
+                counter++;
+               // clients.get(0).sourceVertex=TestVertex[counter];
+
+                //new Visual(); // Let the constructor do the job
             }
-        });
+        });*/
     }
 }
