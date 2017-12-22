@@ -9,8 +9,8 @@ import javax.swing.*;    // Using Swing's components and containers
 // A Swing application extends javax.swing.JFrame
 public class Visual extends JFrame {
     // Define constants
-    public static final int CANVAS_WIDTH  = 640;
-    public static final int CANVAS_HEIGHT = 480;
+    public static final int CANVAS_WIDTH  = 1280;
+    public static final int CANVAS_HEIGHT = 720;
 
     public MapOfCity visMap;
     public ArrayList<Taxi> visCabs;
@@ -25,7 +25,7 @@ public class Visual extends JFrame {
 
     private final int pixelShiftLine = 30;
     private final int pixelShiftColumn = 30;
-    private final int vertSize = 16;
+    private final int vertSize = 25;
 
     // Declare an instance of the drawing canvas,
     // which is an inner class called DrawCanvas extending javax.swing.JPanel.
@@ -79,47 +79,40 @@ public class Visual extends JFrame {
         @Override
         public void paintComponent(Graphics g) {
             super.paintComponent(g);     // paint parent's background
-            setBackground(Color.BLACK);  // set background color for this JPanel
-            g.setColor(Color.WHITE);
+            setBackground(Color.WHITE);  // set background color for this JPanel
+            g.setColor(Color.BLACK);
 
             //basicPointsWhereWeStartToDraw
             int currentHieght = 10;
             int currentLength = 10;
 
-            //whereWeSaveAllRelations
             GraphCells VertCells = new GraphCells();
-
-            for(int i = 0  ; i < vertexheight ; i++  ){
-                for(int j = 0  ; j < vertexlen ; j++  ){
-                    
+            for(int i = 0  ; i < vertexheight ; i++  ) {
+                for(int j = 0  ; j < vertexlen ; j++  ) {
                     g.drawRect(currentLength,currentHieght,vertSize,vertSize);
                     VertCells.AddCell(currentLength,currentHieght,"v" + (i*vertexlen + j));
-                    /// /addVertStack
-                    //int num = i*vertexlen + j;
-
-
-                     currentLength +=pixelShiftColumn;
+                     currentLength += pixelShiftColumn;
 
                 }
                     currentHieght += pixelShiftLine;
                     currentLength = 10;
+            }
 
-                   //g.fillRect(VertCells.GetCell("v150").x,VertCells.GetCell("v150").y,vertSize,vertSize)
-                }
-
-                g.setColor(Color.GREEN);
+            g.setColor(Color.BLACK);
             for(int i = 0  ; i < vertexheight ; i++  ){
                 for(int j = 0  ; j < vertexlen ; j++  ){
 
                     String name1 = "v"+(i*vertexlen + j);
-                    System.out.println("name1= " + name1);
                     String name2 = "v"+(i*vertexlen + j +1);
-                    System.out.println("name2= " + name2);
                     String name3 = "v"+ ((i-1)*vertexlen +j);
                     if(visMap.map.containsEdge(name1,name2))
-                        g.drawLine(VertCells.GetCell(name1).x+vertSize,VertCells.GetCell(name1).y+vertSize/2,VertCells.GetCell(name2).x,VertCells.GetCell(name2).y+vertSize/2);
+                        g.fillRect(VertCells.GetCell(name1).x+vertSize,
+                                VertCells.GetCell(name1).y+vertSize/2,
+                                5, pixelShiftColumn-vertSize);
                     if(visMap.map.containsEdge(name1,name3))
-                        g.drawLine(VertCells.GetCell(name1).x+vertSize/2,VertCells.GetCell(name1).y,VertCells.GetCell(name3).x+vertSize/2,VertCells.GetCell(name3).y+vertSize);
+                        g.fillRect(VertCells.GetCell(name3).x+vertSize/2,
+                                VertCells.GetCell(name3).y+vertSize,
+                                5, pixelShiftLine-vertSize);
                 }
                 currentHieght += pixelShiftLine;
                 // System.out.println(mapOfCity.map.containsEdge("v7","v37"));
@@ -130,21 +123,26 @@ public class Visual extends JFrame {
             }
 
 
-            System.out.println("тут");
-            VertCells.PrintThemAll();
-            System.out.println(visMap);
+           // System.out.println("тут");
+            //VertCells.PrintThemAll();
+            //System.out.println(visMap);
             //DRAW ALL TAXIS HERE
-            g.setColor(Color.YELLOW);
-            //g.fillRect(VertCells.GetCell(newCab.sourceVertex).x,VertCells.GetCell(newCab.sourceVertex).y,vertSize,vertSize);
-            for (Taxi cab:
-                 visCabs) {
-                    g.fillRect(VertCells.GetCell(cab.sourceVertex).x,VertCells.GetCell(cab.sourceVertex).y,vertSize,vertSize);
-            }
+
             //DRAW ALL CLIENT HERE
-            g.setColor(Color.RED);
+            g.setColor(Color.green);
             for (Client cl:
                     visClients) {
-                g.fillRect(VertCells.GetCell(cl.sourceVertex).x,VertCells.GetCell(cl.sourceVertex).y,vertSize,vertSize);
+                g.fillRect(VertCells.GetCell(cl.sourceVertex).x,
+                        VertCells.GetCell(cl.sourceVertex).y,
+                        vertSize, vertSize);
+            }
+
+            g.setColor(Color.YELLOW);
+            //g.fillRect(VertCells.GetCell(newCab.sourceVertex).x,VertCells.GetCell(newCab.sourceVertex).y,vertSize,vertSize);
+            for (Taxi cab : visCabs) {
+                    g.fillRect(VertCells.GetCell(cab.sourceVertex).x,
+                            VertCells.GetCell(cab.sourceVertex).y,
+                            vertSize, vertSize);
             }
             //DRAW ALL ROADS HERE
 

@@ -4,7 +4,7 @@ import org.jgrapht.alg.shortestpath.AStarShortestPath;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
+
 
 public class Path implements Runnable {
     MapOfCity mapOfCity;
@@ -56,7 +56,7 @@ public class Path implements Runnable {
             path = new ArrayList<>(Arrays.asList((pathString.split(", "))));
         }
         taxi.sourceVertex = client.targetVertex;
-        taxi.isFree = true;
+        //taxi.isFree = true;
         return path;
     }
 

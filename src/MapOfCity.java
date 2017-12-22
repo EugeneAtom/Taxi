@@ -47,8 +47,7 @@ public class MapOfCity implements Serializable {
     public Graph createMap(int horizontalVertices, int verticalVertices) {
 
         // create weighted graph
-        Graph<String, DefaultWeightedEdge> mapOfCity
-                = new SimpleWeightedGraph<>(DefaultWeightedEdge.class);
+        Graph<String, DefaultWeightedEdge> mapOfCity = new SimpleWeightedGraph<>(DefaultWeightedEdge.class);
 
         // generate Vertices
         for (int i = 0; i < allVertices; i++) {
@@ -62,7 +61,7 @@ public class MapOfCity implements Serializable {
         for (int i = 0; i < verticalVertices; i++) {
             ArrayList<Integer> listOfEdgesHorizontal = loop(begin, end);
             ArrayList<Integer> listOfEdgesVertical = loop(begin, end);
-            int cohesion = listOfEdgesHorizontal.size() - 1;
+            int cohesion = listOfEdgesHorizontal.size() / 5 * 4;
             for (int j = 0; j < cohesion; j++) {
                 int randIndexHorizontal = rand.nextInt(listOfEdgesHorizontal.size() - 1);
                 int randElementHorizontal = listOfEdgesHorizontal.get(randIndexHorizontal);
