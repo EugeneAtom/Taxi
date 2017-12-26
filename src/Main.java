@@ -19,7 +19,7 @@ public class Main {
         //System.out.println(mapOfCity);
 
         String clientAddress = "/home/Eugene/Taxi/client.txt";
-        int numberOfClients = 20;
+        int numberOfClients = 2;
         ArrayList<Client> clients = Controller.createAndSaveClients(mapOfCity, clientAddress, numberOfClients);
         //ArrayList<Client> clients = Controller.loadClients(clientAddress);
         System.out.println(clients);
@@ -37,7 +37,7 @@ public class Main {
             visual.DrawMap();
             taxi.get(0).sourceVertex = pathString.get(i);
             Thread.sleep(400);
-            if (clients.get(0).sourceVertex == taxi.get(0).sourceVertex) {
+            if (clients.get(0).sourceVertex.equals(taxi.get(0).sourceVertex)) {
                 visual.visClients.remove(0);
             }
         }
