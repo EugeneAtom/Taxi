@@ -19,38 +19,55 @@ public class Main {
         //System.out.println(mapOfCity);
 
         String clientAddress = "/home/Eugene/Taxi/client.txt";
-        int numberOfClients = 2;
+        int numberOfClients = 12;
         ArrayList<Client> clients = Controller.createAndSaveClients(mapOfCity, clientAddress, numberOfClients);
         //ArrayList<Client> clients = Controller.loadClients(clientAddress);
-        System.out.println(clients);
+        //System.out.println(clients);
 
         String taxiAddress = "/home/Eugene/Taxi/taxi.txt";
-        int numberOfTaxi = 8;
+        int numberOfTaxi = 4;
         ArrayList<Taxi> taxi = Controller.createAndSaveTaxi(mapOfCity, taxiAddress, numberOfTaxi);
 
         Visual visual = new Visual(mapOfCity, taxi, clients);
         visual.DrawMap();
         Thread.sleep(3000);
-        Path path = new Path(mapOfCity, clients, taxi.get(0));
-        ArrayList<String> pathString = path.createPath(clients.get(0), taxi.get(0));
-        for (int i = 0; i < pathString.size(); i++){
-            visual.DrawMap();
-            taxi.get(0).sourceVertex = pathString.get(i);
-            Thread.sleep(400);
-            if (clients.get(0).sourceVertex.equals(taxi.get(0).sourceVertex)) {
-                visual.visClients.remove(0);
+
+        int counter = 1;
+        for (int k = 0; k < taxi.size(); k++) {
+            for (int j = 0; j < counter * 4 && j < clients.size(); j++) {
+                Path path = new Path(mapOfCity, clients, taxi.get(k));
+                ArrayList<String> pathString = path.createPath(clients.get(j), taxi.get(k));
+                for (int i = 0; i < pathString.size(); i++) {
+                    visual.DrawMap();
+                    taxi.get(0).sourceVertex = pathString.get(i);
+                    Thread.sleep(400);
+                    if (clients.get(j).sourceVertex.equals(taxi.get(k).sourceVertex)) {
+                        visual.visClients.remove(0);
+                    }
+                }
             }
         }
 
         //System.out.println(taxi);
 
-        //for (int i = 0; i < numberOfTaxi; i++) {
-            //int clientsLength = clients.size();
-            //ArrayList<Client> clientsInThread = new ArrayList<>(clients.subList(i, clientsLength / numberOfTaxi * (i + 1)));
-            //Path path = new Path(mapOfCity, clientsInThread, taxi.get(i));
-            //path.run();
-            //System.out.println("eee" + i);
+        }
+        //Path path = new Path(mapOfCity, clients, taxi.get(0));
+        //ArrayList<String> pathString = path.createPath(clients.get(0), taxi.get(0));
+        //int taxiNumber = 0;
+        //for (ArrayList path : paths) {
+        //    for (int i = 0; i < path.size(); i++){
+        //        visual.DrawMap();
+        //        System.out.println(path.get(0) + "!!!!!!!!!!!!!!!!!!!!!!!!");
+        //        taxi.get(taxiNumber).sourceVertex = (String) path.get(0);
+        //        Thread.sleep(400);
+        //        if (clients.get(i).sourceVertex.equals(taxi.get(taxiNumber).sourceVertex)) {
+        //            visual.visClients.remove(i);
+        //        }
+        //    }
+        //    taxiNumber++;
         //}
+
+
 
         //System.out.println(mapOfCity.map.edgeSet());
         //for (Client client : clients) {
@@ -61,5 +78,4 @@ public class Main {
         //ArrayList pathList = path.createPath(clients.get(0), taxi.get(0));
         //System.out.println(pathList);
         //System.out.println(taxi.get(0).sourceVertex);
-    }
 }

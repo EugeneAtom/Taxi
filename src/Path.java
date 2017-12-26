@@ -64,7 +64,6 @@ public class Path implements Runnable {
     public void run() {
         ALTAdmissibleHeuristic heuristic = new ALTAdmissibleHeuristic(mapOfCity.map, mapOfCity.map.vertexSet());
         AStarShortestPath shortestPath = new AStarShortestPath(mapOfCity.map, heuristic);
-
         while (clients.size() > 0) {
             double shortestDistance = Double.POSITIVE_INFINITY;
             Client luckyClient = null;
