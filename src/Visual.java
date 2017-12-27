@@ -50,8 +50,8 @@ public class Visual extends JFrame {
         visCabs = myCabs;
         visClients = myClients;
         VertCells =new GraphCells();
-
-        image = ImageIO.read(new File("src\\taxi.jpg"));
+        String pathname = "/home/Eugene/Taxi/src/taxi.jpg"; // "src\\taxi.jpg"
+        image = ImageIO.read(new File(pathname));
     }
 
     public void DrawMap() {

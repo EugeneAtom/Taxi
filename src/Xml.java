@@ -63,7 +63,7 @@ public class Xml {
     }
 
 
-    public static void main(String args[]) throws IOException {
+    public static void main(String args[]) throws IOException, InterruptedException {
 
         //!!!!Это сделать один раз, чтобы у тебя быд файлы xml с картой, такси и клиентами
         Scanner in = new Scanner(System.in);
@@ -74,8 +74,8 @@ public class Xml {
             ArrayList<Client> clients = new ArrayList();
 
             MapOfCity map = new MapOfCity("Test", 40, 20); // Создали карту
-            taxi = map.createTaxi(5);
-            clients = map.createClients(5); //тут просто что угодно нам важен размер карты
+            taxi = map.createTaxi(1);
+            clients = map.createClients(0); //тут просто что угодно нам важен размер карты
 
 
             SaveMapXML(map); //записали карту туды в XML
@@ -99,6 +99,16 @@ public class Xml {
 
         Visual myMapDraw = new Visual(maptest, taxiForTest, clientsForTest);
         myMapDraw.DrawMap();
-
+        Thread.sleep(2000);
+        Path path = new Path(maptest, clientsForTest, taxiForTest.get(0));
+        ArrayList<String> pathString = path.createPath(clientsForTest.get(0), taxiForTest.get(0));
+        for (int i = 0; i < pathString.size(); i++){
+            myMapDraw.DrawMap();
+            taxiForTest.get(0).sourceVertex = pathString.get(i);
+            Thread.sleep(400);
+            if (clientsForTest.get(0).sourceVertex == taxiForTest.get(0).sourceVertex) {
+                myMapDraw.visClients.remove(0);
+            }
+        }
     }
 } // Серёжа просто красава
