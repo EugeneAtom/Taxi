@@ -149,31 +149,22 @@ public class Visual extends JFrame {
 */
             g.setColor(Color.YELLOW);
             //g.fillRect(VertCells.GetCell(newCab.sourceVertex).x,VertCells.GetCell(newCab.sourceVertex).y,vertSize,vertSize);
-           DrawAllTaxis(g);
-           DrawAllClients(g);
 
-            /*for (Taxi cab : visCabs) {
-                     g.fillRect(VertCells.GetCell(cab.sourceVertex).x,
-                            VertCells.GetCell(cab.sourceVertex).y,
-                            vertSize, vertSize);
-
-            }*/
+            /**Taxis*/
+            DrawAllTaxis(g);
+            /**Clients*/
+            DrawAllClients(g);
 
 
-            //DRAW ALL ROADS HERE
 
-            // Printing texts
 
-           /* g.setColor(Color.WHITE);
-            g.setFont(new Font("Monospaced", Font.PLAIN, 12));
-            g.drawString("Testing custom drawing ...", 10, 20);*/
         }
     }
 
     private class DrawClnTx extends JPanel {
         @Override
         public void paint(Graphics g) {
-            System.out.println("Я попал в пейнт");
+            //System.out.println("Я попал в пейнт");
             DrawAllClients(g);
             DrawAllTaxis(g);
         }
@@ -243,14 +234,14 @@ public class Visual extends JFrame {
             /***
              * Uncomment drawimage = image instead of yellow rect
              */
-            // g.drawImage(image, curX+1, curY+1, null);
+            g.drawImage(image, curX+1, curY+1, null);
 
-            g.fillRect(curX + 1, curY + 1, vertSize - 1, vertSize - 1);
+           // g.fillRect(curX + 1, curY + 1, vertSize - 1, vertSize - 1);
             g.setColor(Color.black);
             /*g.fillRect(curX+2,curY+5,5,5);
             g.fillRect(curX+10 ,curY+5,5,5);
             g.fillRect(curX+17 ,curY+5,5,5);*/
-            System.out.println("Щас типа нарисовал таСи "+cab.number);
+            //System.out.println("Щас типа нарисовал таСи "+cab.number);
             vertexToClear.add(new Cell(curX, curY, VertCells.GetCell(cab.sourceVertex).edgeName));
         }
     }
@@ -264,12 +255,12 @@ public class Visual extends JFrame {
                 g.fillRect(VertCells.GetCell(cl.sourceVertex).x + 1,
                         VertCells.GetCell(cl.sourceVertex).y + 1,
                         vertSize - 1, vertSize - 1);
-                System.out.println("Щас типа нарисовал клиента "+cl.name);
+               // System.out.println("Щас типа нарисовал клиента "+cl.name);
             } else {
                 g.fillRect(VertCells.GetCell(cl.sourceVertex).x + 1,
                         VertCells.GetCell(cl.sourceVertex).y + 1,
                         8, 8);
-                System.out.println("Щас типа нарисовал клиента "+cl.name);
+             //   System.out.println("Щас типа нарисовал клиента "+cl.name);
             }
             vertexToClear.add(new Cell(VertCells.GetCell(cl.sourceVertex).x, VertCells.GetCell(cl.sourceVertex).y, VertCells.GetCell(cl.sourceVertex).edgeName));
         }
