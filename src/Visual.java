@@ -158,6 +158,8 @@ public class Visual extends JFrame {
 
 
 
+
+
         }
     }
 
@@ -260,8 +262,19 @@ public class Visual extends JFrame {
                 g.fillRect(VertCells.GetCell(cl.sourceVertex).x + 1,
                         VertCells.GetCell(cl.sourceVertex).y + 1,
                         8, 8);
+
+                g.setColor(Color.RED);
+                g.fillRect(VertCells.GetCell(cl.targetVertex).x + 1,
+                        VertCells.GetCell(cl.targetVertex).y + 1,
+                        15,15);
+
+                g.setColor(Color.GREEN);
+
              //   System.out.println("Щас типа нарисовал клиента "+cl.name);
             }
+            /*if(cl.sourceVertex.equals(cl.targetVertex))
+                vertexToClear.add(new Cell(VertCells.GetCell(cl.targetVertex).x, VertCells.GetCell(cl.sourceVertex).y, VertCells.GetCell(cl.sourceVertex).edgeName));
+            */
             vertexToClear.add(new Cell(VertCells.GetCell(cl.sourceVertex).x, VertCells.GetCell(cl.sourceVertex).y, VertCells.GetCell(cl.sourceVertex).edgeName));
         }
     }

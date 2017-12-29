@@ -42,7 +42,7 @@ public class Main {
         /**
          * One CAB LIFT EVERYONE
          */
-        int counter = 1;
+      /*  int counter = 1;
         //for (int k = 0; k < taxi.size(); k++) {
             for (int j = 0; j < counter * 4 && j < clients.size(); j++) {
                 Path path = new Path(mapOfCity, clients, taxi.get(0));
@@ -56,7 +56,7 @@ public class Main {
                         System.out.println("Пассажир " + clients.get(0).name + " едет в такси номер " + taxi.get(0).number);
                         clients.get(0).sourceVertex = taxi.get(0).sourceVertex;
                     }
-                    Thread.sleep(500);
+                    Thread.sleep(100);
 
                      if(clients.get(0).sourceVertex.equals(taxi.get(0).sourceVertex)) {
                          if(firstTime)
@@ -75,8 +75,8 @@ public class Main {
                 }
             }
         //}
+*/
 
-        /*
         int ind=0;
         int[] clientInd = new int[taxi.size()];
         boolean isSysRun = true;
@@ -112,7 +112,7 @@ public class Main {
                 taxCounter[i]++;
 
                 //reach Finale Point
-                if (taxi.get(i).sourceVertex.equals((taxiStringPathes.get(i)).get(taxiStringPathes.get(i).size() - 1))) {
+                /*if (taxi.get(i).sourceVertex.equals((taxiStringPathes.get(i)).get(taxiStringPathes.get(i).size() - 1))) {
                     //rm CLient
                     clients.remove(clientInd[i]);
                     //recount
@@ -120,14 +120,14 @@ public class Main {
                         if (clientInd[k] > clientInd[i])
                             clientInd[k]--;
                     clientInd[i] = 0;
-                }
+                }*/
 
 
                 taxi.get(i).isFree = true;
                 (taxiStringPathes.get(i)).clear();
                 }
             }
-        }*/
+        }
 
     }
 
