@@ -9,15 +9,17 @@ import java.util.Arrays;
 public class Path implements Runnable {
     MapOfCity mapOfCity;
     ArrayList<Client> clients;
+    ArrayList<Client> orderedClients;
     Taxi taxi;
-    public volatile ArrayList paths;
+    public volatile ArrayList<ArrayList<String>> paths;
 
 
     public Path(MapOfCity mapOfCity, ArrayList<Client> clients, Taxi taxi) {
         this.mapOfCity = mapOfCity;
         this.clients = clients;
         this.taxi = taxi;
-        this.paths = new ArrayList();
+        this.paths = new ArrayList<>();
+        this.orderedClients = new ArrayList<>();
     }
 
     public Path(MapOfCity mapOfCity) {
@@ -25,7 +27,7 @@ public class Path implements Runnable {
     }
 
     public ArrayList<String> createPath(Client client, Taxi taxi) {
-        System.out.println("client is: " + client);
+        //System.out.println("client is: " + client);
         taxi.isFree = false;
         client.isWait = false;
         String clientSource = client.sourceVertex;
@@ -78,8 +80,22 @@ public class Path implements Runnable {
                 }
             }
             ArrayList<String> pathList = createPath(luckyClient, taxi);
+            orderedClients.add(clients.get(index));
             clients.remove(index);
             paths.add(pathList);
+        }
+    }
+
+    public void changeLocation(Taxi taxi, Client client, ArrayList<String> path) {
+        System.out.println("taxi " + taxi.sourceVertex + " client " + client.sourceVertex);
+        System.out.println(path);
+        System.out.println();
+        if (taxi.sourceVertex.equals(client.sourceVertex) && path.size() > 1) {
+                taxi.sourceVertex = path.get(1);
+                client.sourceVertex = taxi.sourceVertex;
+        }
+        else if (!taxi.sourceVertex.equals(client.sourceVertex) && path.size() > 1) {
+            taxi.sourceVertex = path.get(1);
         }
     }
 }

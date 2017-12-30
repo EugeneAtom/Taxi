@@ -30,9 +30,6 @@ public class Client implements Serializable {
         this.targetVertex = targetVertex;
     }
 
-    //public Client() {
-    //}
-
     public static void SaveToFile(Client client, String adress) throws IOException {
         FileOutputStream fos = new FileOutputStream(adress);
         ObjectOutputStream asd = new ObjectOutputStream(fos);

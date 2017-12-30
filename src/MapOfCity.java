@@ -1,7 +1,3 @@
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Rectangle;
-
 import java.io.*;
 import java.util.*;
 import org.jgrapht.Graph;
