@@ -87,9 +87,9 @@ public class Path implements Runnable {
     }
 
     public void changeLocation(Taxi taxi, Client client, ArrayList<String> path) {
-        System.out.println("taxi " + taxi.sourceVertex + " client " + client.sourceVertex);
-        System.out.println(path);
-        System.out.println();
+//        System.out.println("taxi " + taxi.sourceVertex + " client " + client.sourceVertex);
+//        System.out.println(path);
+//        System.out.println();
         if (taxi.sourceVertex.equals(client.sourceVertex) && path.size() > 1) {
                 taxi.sourceVertex = path.get(1);
                 client.sourceVertex = taxi.sourceVertex;
