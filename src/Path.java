@@ -38,7 +38,7 @@ public class Path implements Runnable {
         ALTAdmissibleHeuristic heuristic = new ALTAdmissibleHeuristic(mapOfCity.map, mapOfCity.map.vertexSet());
 
         ArrayList<String> path;
-        if (taxiSource != clientSource) {
+        if (!taxiSource.equals(clientSource)) {
             AStarShortestPath taxiSourceTargetPath = new AStarShortestPath(mapOfCity.map, heuristic);
             AStarShortestPath clientSourceTargetPath = new AStarShortestPath(mapOfCity.map, heuristic);
             String beginString = (taxiSourceTargetPath.getPath(taxiSource, taxiTarget)).toString();
@@ -87,9 +87,6 @@ public class Path implements Runnable {
     }
 
     public void changeLocation(Taxi taxi, Client client, ArrayList<String> path) {
-//        System.out.println("taxi " + taxi.sourceVertex + " client " + client.sourceVertex);
-//        System.out.println(path);
-//        System.out.println();
         if (taxi.sourceVertex.equals(client.sourceVertex) && path.size() > 1) {
                 taxi.sourceVertex = path.get(1);
                 client.sourceVertex = taxi.sourceVertex;

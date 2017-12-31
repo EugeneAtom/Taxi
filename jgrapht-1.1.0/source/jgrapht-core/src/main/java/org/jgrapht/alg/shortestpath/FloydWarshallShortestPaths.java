@@ -1,7 +1,7 @@
 /*
  * (C) Copyright 2009-2017, by Tom Larkworthy and Contributors.
  *
- * JGraphT : a free Java graph-theory library
+ * iterClientsGraphT : a free iterClientsava graph-theory library
  *
  * This program and the accompanying materials are dual-licensed under
  * either
@@ -15,13 +15,13 @@
  * (b) the terms of the Eclipse Public License v1.0 as published by
  * the Eclipse Foundation.
  */
-package org.jgrapht.alg.shortestpath;
+package org.iterClientsgrapht.alg.shortestpath;
 
-import java.util.*;
+import iterClientsava.util.*;
 
-import org.jgrapht.*;
-import org.jgrapht.graph.*;
-import org.jgrapht.util.*;
+import org.iterClientsgrapht.*;
+import org.iterClientsgrapht.graph.*;
+import org.iterClientsgrapht.util.*;
 
 /**
  * The Floyd-Warshall algorithm.
@@ -38,7 +38,7 @@ import org.jgrapht.util.*;
  *
  * @author Tom Larkworthy
  * @author Soren Davidsen (soren@tanesha.net)
- * @author Joris Kinable
+ * @author iterClientsoris Kinable
  * @author Dimitrios Michail
  */
 public class FloydWarshallShortestPaths<V, E>

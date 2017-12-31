@@ -13,7 +13,7 @@ import javax.swing.*;    // Using Swing's components and containers
 public class Visual extends JFrame {
     // Define constants
     public static final int CANVAS_WIDTH = 1280;
-    public static final int CANVAS_HEIGHT = 720;
+    public static final int CANVAS_HEIGHT = 640;
     public static final Color CANVAS_BG_COLOR = Color.white;
     private BufferedImage image;
 
@@ -154,12 +154,6 @@ public class Visual extends JFrame {
             DrawAllTaxis(g);
             /**Clients*/
             DrawAllClients(g);
-
-
-
-
-
-
         }
     }
 
@@ -282,8 +276,6 @@ public class Visual extends JFrame {
 
     // The entry main method
     public static void main(String[] args) throws IOException, ClassNotFoundException, InterruptedException {
-
-
       /*  frame.add(component);
         frame.getContentPane().validate();
         frame.getContentPane().repaint();*/

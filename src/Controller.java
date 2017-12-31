@@ -3,6 +3,75 @@ import java.util.ArrayList;
 
 
 public class Controller {
+    public static void main(String[] args) throws IOException, ClassNotFoundException, InterruptedException {
+        String mapName = "Moscow";
+        String mapAddress = "map" + mapName + ".txt";
+        MapOfCity mapOfCity = Controller.createAndSaveMap(mapAddress, mapName, 40, 20);
+
+        String clientAddress = "client.txt";
+        int numberOfClients = 15;
+        ArrayList<Client> clients = Controller.createAndSaveClients(mapOfCity, clientAddress, numberOfClients);
+
+        String taxiAddress = "taxi.txt";
+        int numberOfTaxi = 6;
+        ArrayList<Taxi> taxi = Controller.createAndSaveTaxi(mapOfCity, taxiAddress, numberOfTaxi);
+        ArrayList<Taxi> visualTaxi = Controller.loadTaxi(taxiAddress);
+
+        ArrayList<Path> pathsForCabs = new ArrayList<>();
+        ArrayList<ArrayList<Client>> clientsForCabs = Controller.clientsToCabs(clients, numberOfTaxi);
+        ArrayList<ArrayList<Integer>> arrayForSizes = new ArrayList<>();
+
+        for (int k = 0; k < numberOfTaxi; k++) {
+            Path path = new Path(mapOfCity, clientsForCabs.get(k), taxi.get(k));
+            pathsForCabs.add(path);
+            path.run();
+            ArrayList<Integer> tmpArray = new ArrayList<>();
+            for (ArrayList<String> stringPath : path.paths) {
+                tmpArray.add(stringPath.size());
+            }
+            arrayForSizes.add(tmpArray);
+        }
+
+        Visual visual = new Visual(mapOfCity, visualTaxi, clients);
+        visual.DrawMap();
+        Thread.sleep(1000);
+
+        // iterCab - iterate of number of taxi
+        // iterClient - iterate of number of clients which taxi[i] left
+        // iterVertex - iterate of number of vertex in taxi path to client
+
+        int maxClientsForCab;
+        if (numberOfClients % numberOfTaxi == 0) {
+            maxClientsForCab = numberOfClients / numberOfTaxi;
+        } else {
+            maxClientsForCab = numberOfClients / numberOfTaxi + 1;
+        }
+
+        for (int iterClient = 0; iterClient < maxClientsForCab; iterClient++) {
+            int maxVertex = 0;
+            for (Path path : pathsForCabs) {
+                if (iterClient < path.paths.size()) {
+                    if (maxVertex < path.paths.get(iterClient).size()) {
+                        maxVertex = path.paths.get(iterClient).size();
+                    }
+                }
+            }
+
+            for (int iterVertex = 0; iterVertex < maxVertex; iterVertex++) {
+
+                for (int iterCab = 0; iterCab < pathsForCabs.size(); iterCab++) {
+                    if (iterClient < pathsForCabs.get(iterCab).paths.size()
+                            && iterVertex < arrayForSizes.get(iterCab).get(iterClient)) { // !!!
+                        Path path = pathsForCabs.get(iterCab);
+                        path.changeLocation(visualTaxi.get(iterCab), path.orderedClients.get(iterClient), path.paths.get(iterClient));
+                        path.paths.get(iterClient).remove(0);
+                    }
+                }
+                Thread.sleep(400);
+                visual.DrawMap();
+            }
+        }
+    }
 
     public static MapOfCity createAndSaveMap(String mapAdress, String name, int horizontal, int vertical) throws IOException {
         MapOfCity map = new MapOfCity(name, horizontal, vertical);
