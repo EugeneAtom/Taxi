@@ -57,7 +57,7 @@ public class MapOfCity implements Serializable {
         for (int i = 0; i < verticalVertices; i++) {
             ArrayList<Integer> listOfEdgesHorizontal = loop(begin, end);
             ArrayList<Integer> listOfEdgesVertical = loop(begin, end);
-            int cohesion = listOfEdgesHorizontal.size() / 5 * 4;
+            int cohesion = listOfEdgesHorizontal.size() / 5 * 4 + 2;
             for (int j = 0; j < cohesion; j++) {
                 int randIndexHorizontal = rand.nextInt(listOfEdgesHorizontal.size() - 1);
                 int randElementHorizontal = listOfEdgesHorizontal.get(randIndexHorizontal);

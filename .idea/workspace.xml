@@ -2,16 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="77e79c84-bf57-4182-aaaf-e98adaa05629" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/Taxi/Main.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/Main.java" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Taxi/Path.class" afterPath="$PROJECT_DIR$/out/production/Taxi/Path.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client.txt" afterPath="$PROJECT_DIR$/client.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/jgrapht-1.1.0/source/jgrapht-core/src/main/java/org/jgrapht/alg/shortestpath/FloydWarshallShortestPaths.java" afterPath="$PROJECT_DIR$/jgrapht-1.1.0/source/jgrapht-core/src/main/java/org/jgrapht/alg/shortestpath/FloydWarshallShortestPaths.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mapMoscow.txt" afterPath="$PROJECT_DIR$/mapMoscow.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Controller.java" afterPath="$PROJECT_DIR$/src/Controller.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/MapOfCity.java" afterPath="$PROJECT_DIR$/src/MapOfCity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Path.java" afterPath="$PROJECT_DIR$/src/Path.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Visual.java" afterPath="$PROJECT_DIR$/src/Visual.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/taxi.txt" afterPath="$PROJECT_DIR$/taxi.txt" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -37,12 +32,22 @@
       <file leaf-file-name="Controller.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Controller.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="252">
-              <caret line="15" column="28" lean-forward="false" selection-start-line="15" selection-start-column="28" selection-end-line="15" selection-end-column="28" />
+            <state relative-caret-position="-18">
+              <caret line="33" column="0" lean-forward="true" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <marker date="1514716629097" expanded="false" signature="0:55" ph="..." />
+                <marker date="1515488106903" expanded="false" signature="0:55" ph="..." />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MapOfCity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/MapOfCity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="180">
+              <caret line="59" column="67" lean-forward="false" selection-start-line="59" selection-start-column="67" selection-end-line="59" selection-end-column="67" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -50,8 +55,8 @@
       <file leaf-file-name="Path.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Path.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="594">
-              <caret line="40" column="13" lean-forward="false" selection-start-line="40" selection-start-column="13" selection-end-line="40" selection-end-column="13" />
+            <state relative-caret-position="102">
+              <caret line="82" column="0" lean-forward="false" selection-start-line="82" selection-start-column="0" selection-end-line="82" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -115,11 +120,11 @@
         <option value="$PROJECT_DIR$/src/Data.java" />
         <option value="$PROJECT_DIR$/src/Client.java" />
         <option value="$PROJECT_DIR$/src/Xml.java" />
-        <option value="$PROJECT_DIR$/src/MapOfCity.java" />
         <option value="$PROJECT_DIR$/jgrapht-1.1.0/source/jgrapht-core/src/main/java/org/jgrapht/alg/shortestpath/FloydWarshallShortestPaths.java" />
         <option value="$PROJECT_DIR$/src/Main.java" />
-        <option value="$PROJECT_DIR$/src/Path.java" />
         <option value="$PROJECT_DIR$/src/Visual.java" />
+        <option value="$PROJECT_DIR$/src/Path.java" />
+        <option value="$PROJECT_DIR$/src/MapOfCity.java" />
         <option value="$PROJECT_DIR$/src/Controller.java" />
       </list>
     </option>
@@ -170,8 +175,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
+      <pane id="AndroidView" />
       <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
@@ -194,7 +198,8 @@
           <select />
         </subPane>
       </pane>
-      <pane id="AndroidView" />
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -414,11 +419,12 @@
       <workItem from="1514644942735" duration="5706000" />
       <workItem from="1514692491610" duration="7720000" />
       <workItem from="1514716365114" duration="486000" />
+      <workItem from="1515484698457" duration="3358000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="135320000" />
+    <option name="totallyTimeSpent" value="138678000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="10" y="27" width="1366" height="741" extended-state="6" />
@@ -431,7 +437,7 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.36334404" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.41318327" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -465,13 +471,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/jgrapht-1.1.0/javadoc/org/jgrapht/alg/color/SmallestDegreeLastColoring.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="4" column="18" lean-forward="false" selection-start-line="4" selection-start-column="18" selection-end-line="4" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/jgrapht-1.1.0/javadoc/org/jgrapht/alg/cycle/JohnsonSimpleCycles.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="72">
@@ -786,14 +785,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Path.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="594">
-          <caret line="40" column="13" lean-forward="false" selection-start-line="40" selection-start-column="13" selection-end-line="40" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Client.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="36">
@@ -810,13 +801,29 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/MapOfCity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="59" column="67" lean-forward="false" selection-start-line="59" selection-start-column="67" selection-end-line="59" selection-end-column="67" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Path.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="82" column="0" lean-forward="false" selection-start-line="82" selection-start-column="0" selection-end-line="82" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/Controller.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="15" column="28" lean-forward="false" selection-start-line="15" selection-start-column="28" selection-end-line="15" selection-end-column="28" />
+        <state relative-caret-position="-18">
+          <caret line="33" column="0" lean-forward="true" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1514716629097" expanded="false" signature="0:55" ph="..." />
+            <marker date="1515488106903" expanded="false" signature="0:55" ph="..." />
           </folding>
         </state>
       </provider>

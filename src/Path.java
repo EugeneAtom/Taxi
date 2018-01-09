@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 
-public class Path implements Runnable {
+public class Path extends Thread{
     MapOfCity mapOfCity;
     ArrayList<Client> clients;
     ArrayList<Client> orderedClients;

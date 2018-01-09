@@ -7,30 +7,44 @@ public class Controller {
         String mapName = "Moscow";
         String mapAddress = "map" + mapName + ".txt";
         MapOfCity mapOfCity = Controller.createAndSaveMap(mapAddress, mapName, 40, 20);
+        //MapOfCity mapOfCity = Controller.loadMap(mapAddress);
 
         String clientAddress = "client.txt";
-        int numberOfClients = 15;
+        int numberOfClients = 10;
         ArrayList<Client> clients = Controller.createAndSaveClients(mapOfCity, clientAddress, numberOfClients);
+        //ArrayList<Client> clients = Controller.loadClients(clientAddress);
 
         String taxiAddress = "taxi.txt";
-        int numberOfTaxi = 6;
+        int numberOfTaxi = 3;
         ArrayList<Taxi> taxi = Controller.createAndSaveTaxi(mapOfCity, taxiAddress, numberOfTaxi);
+        //ArrayList<Taxi> taxi = Controller.loadTaxi(taxiAddress);
         ArrayList<Taxi> visualTaxi = Controller.loadTaxi(taxiAddress);
 
         ArrayList<Path> pathsForCabs = new ArrayList<>();
         ArrayList<ArrayList<Client>> clientsForCabs = Controller.clientsToCabs(clients, numberOfTaxi);
         ArrayList<ArrayList<Integer>> arrayForSizes = new ArrayList<>();
 
+        long startTime = System.currentTimeMillis();
+
         for (int k = 0; k < numberOfTaxi; k++) {
             Path path = new Path(mapOfCity, clientsForCabs.get(k), taxi.get(k));
+            path.start();
             pathsForCabs.add(path);
-            path.run();
+        }
+
+        for (Path path : pathsForCabs) {
+            path.join();
             ArrayList<Integer> tmpArray = new ArrayList<>();
             for (ArrayList<String> stringPath : path.paths) {
                 tmpArray.add(stringPath.size());
             }
             arrayForSizes.add(tmpArray);
         }
+
+
+        long endTime   = System.currentTimeMillis();
+        System.out.println(endTime - startTime + "ms");
+
 
         Visual visual = new Visual(mapOfCity, visualTaxi, clients);
         visual.DrawMap();
