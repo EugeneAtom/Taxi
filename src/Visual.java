@@ -50,7 +50,7 @@ public class Visual extends JFrame {
         visCabs = myCabs;
         visClients = myClients;
         VertCells =new GraphCells();
-        String pathname = "/home/Eugene/Taxi/src/taxi.jpg"; // "src\\taxi.jpg"
+        String pathname =  /* "/home/Eugene/Taxi/src/taxi.jpg"; */ "src\\taxi.jpg";
         image = ImageIO.read(new File(pathname));
     }
 
@@ -149,11 +149,13 @@ public class Visual extends JFrame {
 */
             g.setColor(Color.YELLOW);
             //g.fillRect(VertCells.GetCell(newCab.sourceVertex).x,VertCells.GetCell(newCab.sourceVertex).y,vertSize,vertSize);
-
             /**Taxis*/
             DrawAllTaxis(g);
             /**Clients*/
             DrawAllClients(g);
+
+
+
         }
     }
 
@@ -232,12 +234,8 @@ public class Visual extends JFrame {
              */
             g.drawImage(image, curX+1, curY+1, null);
 
-           // g.fillRect(curX + 1, curY + 1, vertSize - 1, vertSize - 1);
             g.setColor(Color.black);
-            /*g.fillRect(curX+2,curY+5,5,5);
-            g.fillRect(curX+10 ,curY+5,5,5);
-            g.fillRect(curX+17 ,curY+5,5,5);*/
-            //System.out.println("Щас типа нарисовал таСи "+cab.number);
+
             vertexToClear.add(new Cell(curX, curY, VertCells.GetCell(cab.sourceVertex).edgeName));
         }
     }
@@ -269,7 +267,34 @@ public class Visual extends JFrame {
             /*if(cl.sourceVertex.equals(cl.targetVertex))
                 vertexToClear.add(new Cell(VertCells.GetCell(cl.targetVertex).x, VertCells.GetCell(cl.sourceVertex).y, VertCells.GetCell(cl.sourceVertex).edgeName));
             */
+            /**reach final point**/
+            if(cl.sourceVertex.equals(cl.targetVertex)){
+                g.setColor(CANVAS_BG_COLOR);
+                g.fillRect(VertCells.GetCell(cl.targetVertex).x + 1, VertCells.GetCell(cl.targetVertex).y + 1, vertSize - 1, vertSize - 1);
+                g.setColor(Color.BLACK);
+
+                g.drawRect(VertCells.GetCell(cl.targetVertex).x, VertCells.GetCell(cl.targetVertex).y, vertSize, vertSize);
+
+
+                for (Taxi cab : visCabs) {
+                    if (  cl.sourceVertex.equals((cab.sourceVertex))) {
+                        vertexToClear.clear();
+                        g.setColor(Color.YELLOW);
+                        int curX = VertCells.GetCell(cab.sourceVertex).x;
+                        int curY = VertCells.GetCell(cab.sourceVertex).y;
+
+                        g.drawImage(image, curX + 1, curY + 1, null);
+                        g.setColor(Color.black);
+                    }
+                    //vertexToClear.add(new Cell(curX, curY, VertCells.GetCell(cab.sourceVertex).edgeName));
+                }
+                g.setColor(Color.GREEN);
+            }
+                //visClients.remove(cl);
+                //vertexToClear.add(new Cell(VertCells.GetCell(cl.targetVertex).x, VertCells.GetCell(cl.targetVertex).y, VertCells.GetCell(cl.targetVertex).edgeName));
+
             vertexToClear.add(new Cell(VertCells.GetCell(cl.sourceVertex).x, VertCells.GetCell(cl.sourceVertex).y, VertCells.GetCell(cl.sourceVertex).edgeName));
+            //DrawAllTaxis(g);
         }
     }
 
