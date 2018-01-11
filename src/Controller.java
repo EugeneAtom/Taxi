@@ -75,7 +75,7 @@ public class Controller {
 
                 for (int iterCab = 0; iterCab < pathsForCabs.size(); iterCab++) {
                     if (iterClient < pathsForCabs.get(iterCab).paths.size()
-                            && iterVertex < arrayForSizes.get(iterCab).get(iterClient)) { // !!!
+                            && iterVertex < arrayForSizes.get(iterCab).get(iterClient)) {
                         Path path = pathsForCabs.get(iterCab);
                         path.changeLocation(visualTaxi.get(iterCab), path.orderedClients.get(iterClient), path.paths.get(iterClient));
                         path.paths.get(iterClient).remove(0);
